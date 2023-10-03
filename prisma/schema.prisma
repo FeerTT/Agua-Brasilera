@@ -29,3 +29,4 @@ model Medicion {
   valorFijo Int
   usuario Usuario @relation(fields: [usuarioId], references: [id])
 }
+

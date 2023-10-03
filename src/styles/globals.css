@@ -105,3 +105,416 @@ a {
     color-scheme: dark;
   }
 }
+
+
+.modalContainer {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 80%; /* Establece el ancho máximo del modal */
+  width: 400px; /* Establece el ancho del modal */
+  z-index: 9999; /* Asegúrate de que el modal esté por encima de otros elementos */
+}
+
+.inputContainer {
+  /* Estilos para los contenedores de entrada */
+  margin-bottom: 10px;
+}
+
+.inputField {
+  /* Estilos para los campos de entrada */
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.buttonContainer {
+  /* Estilos para el contenedor de botones */
+  display: flex;
+  justify-content: space-between;
+}
+
+.saveButton {
+  /* Estilos para el botón de guardar */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.cancelButton {
+  /* Estilos para el botón de cancelar */
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.h2Modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.regresarUsuario{
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.modifyButton {
+  background-color: #007bff; /* Color de fondo del botón */
+  color: #fff; /* Color del texto del botón */
+  border: none; /* Elimina el borde del botón */
+  border-radius: 5px; /* Borde redondeado */
+  padding: 10px 20px; /* Espaciado interno del botón (vertical, horizontal) */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse sobre el botón */
+  font-weight: bold; /* Texto en negrita */
+}
+
+/* Estilo hover (cuando el mouse pasa sobre el botón) */
+.modifyButton:hover {
+  background-color: #0056b3; /* Cambia el color de fondo en hover */
+}
+
+/* Estilo de enfoque (cuando el botón está enfocado) */
+.modifyButton:focus {
+  outline: none; /* Elimina el contorno predeterminado en el enfoque */
+  box-shadow: 0 0 5px #007bff; /* Agrega una sombra alrededor del botón en enfoque */
+}
+
+
+/* .deleteModal {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+} */
+.deleteModal {
+  /* Estilos para el contenedor del modal de eliminación */
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 80%; /* Establece el ancho del modal */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999; /* Asegúrate de que el modal esté por encima de otros elementos */
+  padding: 20px;
+  text-align: center;
+}
+/* Estilos para el mensaje de confirmación */
+.deleteMessage {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+/* Estilos para los botones en el modal */
+.deleteButtons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Estilos para el botón de confirmar */
+.confirmButton {
+  background-color: #e74c3c; /* Color rojo */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* Estilos para el botón de cancelar */
+.cancelButton {
+  background-color: #ccc; /* Color gris */
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* Estilos para los botones en hover */
+.confirmButton:hover,
+.cancelButton:hover {
+  opacity: 0.8;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+}
+
+.page-item {
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.page-link {
+  text-decoration: none;
+  padding: 5px 10px;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+}
+
+.page-item.active {
+  background-color: #007bff;
+}
+
+.page-item.active .page-link {
+  background-color: #007bff
+}
+
+
+.rwd-table {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.rwd-table th,
+.rwd-table td {
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 0,5px solid #ccc;
+}
+
+.rwd-table th {
+  font-weight: bold;
+}
+
+.h1List{
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin: 20px 0;
+};
+
+
+/*FORM PARA REGISTRO DE USUARIOS */
+
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.add-user-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color:  #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.form-button {
+  display: block; /* Hace que el botón sea un elemento de bloque */
+  margin: 0 auto; /* Centra horizontalmente el botón dentro del contenedor */
+  padding: 10px 20px; /* Ajusta el espaciado del botón según tus preferencias */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background-color: #0056b3;
+}
+
+.form-container h1 {
+  font-size: 24px; /* Tamaño de fuente del título */
+  margin-bottom: 20px; /* Espacio inferior para separarlo de los campos del formulario */
+  color: #333; /* Color del texto del título */
+
+}
+
+
+
+
+
+
+
+.modelo-conteiner{
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  margin-bottom: 20px;
+  margin-left: 10px;
+
+}
+
+#sort {
+  width: 200px; /* Ajusta el ancho según tus necesidades */
+  height: 40px; /* Ajusta la altura según tus necesidades */
+}
+#sort option {
+  font-size: 16px; /* Ajusta el tamaño de fuente de las opciones según tus necesidades */
+  padding: 8px 12px; /* Ajusta el espacio interno de las opciones según tus necesidades */
+}
+
+
+.create-confirmation-modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Estilos para el título del modal */
+.create-confirmation-modal-container h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+/* Estilos para los datos del usuario */
+.create-confirmation-modal-container p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Estilos para el contenedor de botones */
+.confirmation-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+/* Estilos para los botones */
+.button-confirmar-crear {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #4caf50; /* Verde */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-cancelar-crear {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #ccc; /* Gris */
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.divRegresarUsuario{
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: px;
+}
+
+.users-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f0f0; /* Cambia el color de fondo a tu elección */
+}
+
+/* Estilos para el título */
+.users-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Estilos para el contenedor de botones */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Estilos para los botones de ver y modificar usuarios */
+.view-modify-button {
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #007bff; /* Cambia el color de fondo a tu elección */
+  color: #fff; /* Cambia el color del texto a blanco */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-modify-button:hover {
+  background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse */
+}
+
+/* Estilos para el botón de agregar nuevos usuarios */
+.add-button {
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #007bff; /* Cambia el color de fondo a tu elección */
+  color: #fff; /* Cambia el color del texto a blanco */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse */
+}
