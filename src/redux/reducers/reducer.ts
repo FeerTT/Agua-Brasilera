@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { GET_USER_LIST, AGREGAR_USUARIO, EDITAR_USUARIO, ELIMINAR_USUARIO } from '../actions/action';
+import { GET_USER_LIST, AGREGAR_USUARIO, EDITAR_USUARIO, ELIMINAR_USUARIO, GET_MEDICIONES } from '../actions/action';
 
 
 type Usuario = {
@@ -9,13 +9,30 @@ type Usuario = {
   telefono: string;
 };
 
+type Medicion = {
+  id: number;
+  mesActual: string;
+  consumoDelMes: number;
+  consumoDelMesAnterior: number;
+  totalAPagar: number;
+  tarifaExcedente: number;
+  valorFijo: number;
+  usuario: {
+    id: number;
+    nombre: string;
+    apellido: string;
+    telefono: string;
+  };
+};
 // Define el tipo del estado
 type UserState = {
-  userList: Usuario[];
+  userList: Usuario[]
+  medicionList: Medicion[];
 };
 
 const initialState: UserState = {
   userList: [],
+  medicionList:[],
 };
 export const userReducer = createReducer(initialState, (builder) => {
   builder
@@ -36,6 +53,9 @@ export const userReducer = createReducer(initialState, (builder) => {
     .addCase(ELIMINAR_USUARIO, (state, action) => {
       const userIdToDelete = action.payload;
       state.userList = state.userList.filter((user) => user.id !== userIdToDelete);
+    })
+    .addCase(GET_MEDICIONES, (state, action) =>{
+      state.medicionList = action.payload;
     });
 });
 // export const userReducer = createReducer(initialState, {

@@ -20,8 +20,8 @@ model Usuario {
 
 model Medicion {
   id Int @id @default(autoincrement())
-  usuarioId Int @unique
-  mesActual DateTime
+  usuarioId Int 
+  mesActual String
   consumoDelMes Int
   consumoDelMesAnterior Int
   tarifaExcedente Int
