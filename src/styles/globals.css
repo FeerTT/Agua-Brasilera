@@ -518,3 +518,82 @@ a {
 .add-button:hover {
   background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse */
 }
+
+
+.divisorInputs {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.divisorInputs h1 {
+  font-size: 30px;
+  margin: 0 0 20px 0;
+}
+
+.divisorInputs p {
+  font-size: 16px;
+  margin: 10px 0;
+  color: black;
+}
+
+.divisorInputs input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.divisorInputs input[type="number"]:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Botones para un diseño más atractivo */
+.divisorInputs button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.divisorInputs button:hover {
+  background-color: #0056b3;
+}
+
+.buttonCrear {
+  background-color:#34a1eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 20px; /* Tamaño de fuente más grande */
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+  width: 200px; /* Ancho del botón */
+  height: 75px; /* Alto del botón */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.buttonCrear:hover {
+  background-color: blue; /* Cambio de color al pasar el ratón */
+}
+.divButtonFinal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+}

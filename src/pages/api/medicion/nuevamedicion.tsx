@@ -9,32 +9,48 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     try {
-      const {
-        usuarioId,
-        mesActual,
-        consumoDelMes,
-        consumoDelMesAnterior,
-        tarifaExcedente,
-        totalAPagar,
-        valorFijo,
-      } = req.body;
-      const nuevaMedicion = await prisma.medicion.create({
-        data: {
+      const medicionesData = req.body; // Arreglo de objetos con datos de mediciones
+      const nuevasMediciones = [];
+  
+      for (const medicionData of medicionesData) {
+        const {
           usuarioId,
-          mesActual,
           consumoDelMes,
           consumoDelMesAnterior,
           tarifaExcedente,
           totalAPagar,
           valorFijo,
-        },
-      });
-      res.status(200).send(nuevaMedicion);
+        } = medicionData;
+        const fechaActual = new Date();
+        const fechaActualString =  fechaActual.toISOString().split('T')[0];
+        const consumoDelMesNum = parseInt(consumoDelMes);
+      const consumoDelMesAnteriorNum = parseInt(consumoDelMesAnterior);
+      const tarifaExcedenteNum = parseInt(tarifaExcedente);
+      const totalAPagarNum = parseInt(totalAPagar);
+      const valorFijoNum = parseInt(valorFijo);
+        const nuevaMedicion = await prisma.medicion.create({
+          data: {
+            usuario: {
+              connect: {
+                id: usuarioId, // Asociar la medición al usuario
+              },
+            },
+            mesActual: fechaActualString, // Fecha actual
+            consumoDelMes:consumoDelMesNum,
+            consumoDelMesAnterior:consumoDelMesAnteriorNum,
+            tarifaExcedente:tarifaExcedenteNum,
+            totalAPagar:totalAPagarNum,
+            valorFijo:valorFijoNum,
+          },
+        });
+  
+        nuevasMediciones.push(nuevaMedicion);
+      }
+  
+      res.status(200).json(nuevasMediciones);
     } catch (error) {
-      console.error("Error al cargar primera medicion:", error);
-      res
-        .status(500)
-        .json({ error: "No se pudo cargar las primeras mediciones" });
+      console.error("Error al cargar las mediciones:", error);
+      res.status(500).json({ error: "No se pudieron cargar las mediciones" });
     }
   } else {
     res.status(405).json({ error: "Método no permitido." });

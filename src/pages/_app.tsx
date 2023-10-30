@@ -1,10 +1,11 @@
 import '@/styles/globals.css'
-import { Provider } from 'react-redux'
+import { Provider, useDispatch } from 'react-redux'
 import store from '@/redux/store/store'
-import React from 'react'
+import React, {useEffect, useState}  from 'react'
 import { AppProps } from 'next/app'
 import '@/styles/styles.scss'
 import Modal from 'react-modal'
+
 
 
 

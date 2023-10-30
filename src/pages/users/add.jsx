@@ -86,7 +86,7 @@ const AddUserForm = () => {
         isOpen={isModalOpen}
         onRequestClose={()=>setIsModalOpen(false)}
         nombre={formData.nombre}
-        apellido={formData.nombre}
+        apellido={formData.apellido}
         telefono={formData.telefono}
       />
   </div>

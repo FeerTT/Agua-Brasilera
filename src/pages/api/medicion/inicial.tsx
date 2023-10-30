@@ -18,10 +18,12 @@ export default async function handler(
         totalAPagar,
         valorFijo,
       } = req.body;
+      const fechaActual = new Date();
+      console.log(req.body, "CL REQ.BODY!!!!")
       const nuevaMedicion = await prisma.medicion.create({
         data: {
-          usuarioId,
-          mesActual,
+          usuarioId: usuarioId,
+          mesActual: (fechaActual.getMonth() + 1).toString(),
           consumoDelMes,
           consumoDelMesAnterior,
           tarifaExcedente,

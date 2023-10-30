@@ -11,7 +11,7 @@ const UsersPage = () => {
             VER MEDICIONES
           </button>
         </Link>
-        <Link href="/mediciones/agregar">
+        <Link href="/mediciones/mostrarUsers">
           <button className="add-button">
             AGREGAR NUEVA MEDICION
           </button>

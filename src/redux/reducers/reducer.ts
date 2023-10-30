@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { GET_USER_LIST, AGREGAR_USUARIO, EDITAR_USUARIO, ELIMINAR_USUARIO, GET_MEDICIONES } from '../actions/action';
+import { GET_USER_LIST, AGREGAR_USUARIO, EDITAR_USUARIO, ELIMINAR_USUARIO, GET_MEDICIONES, CREAR_MEDICION, getMedicionMesAnterior } from '../actions/action';
 
 
 type Usuario = {
@@ -54,9 +54,13 @@ export const userReducer = createReducer(initialState, (builder) => {
       const userIdToDelete = action.payload;
       state.userList = state.userList.filter((user) => user.id !== userIdToDelete);
     })
-    .addCase(GET_MEDICIONES, (state, action) =>{
-      state.medicionList = action.payload;
-    });
+    .addCase(GET_MEDICIONES, (state, action) => {
+      state.medicionList = action.payload as any;
+    })
+    .addCase(CREAR_MEDICION, (state,action) =>{
+      const nuevaMedicion = action.payload as any;
+      state.medicionList.push(nuevaMedicion)
+    })
 });
 // export const userReducer = createReducer(initialState, {
 //   [GET_USER_LIST.type]: (state, action) => {

@@ -10,7 +10,7 @@ import ReactPaginate from 'react-paginate'
 
 const Listado = () => {
   const dispatch = useDispatch();
-  const userList = useSelector((state) => state.users.userList);
+  const userList = useSelector((state) => state.userReducer.userList);
   const [selectedUser, setSelectedUser] = useState(null);
   const [confirmationModalIsOpen, setConfirmationModalIsOpen] = useState(false);
   const [selectedUserDelete, setSelectedUserDelete] = useState(null);
@@ -37,7 +37,7 @@ const Listado = () => {
     } else if (field === 'telefono') {
       return order === 'asc' ? a.telefono.localeCompare(b.telefono) : b.telefono.localeCompare(a.telefono);
     } else {
-      // Ordenar por apellido de forma predeterminada
+
       return order === 'asc' ? a.apellido.localeCompare(b.apellido) : b.apellido.localeCompare(a.apellido);
     }
   });
@@ -140,8 +140,8 @@ const Listado = () => {
       isOpen={confirmationModalIsOpen}
       onRequestClose={() => closeConfirmationModal()}
       contentLabel="Confirmar Eliminación"
-      className="deleteModal" // Aplica la clase CSS al modal
-      overlayClassName="modalOverlay" // Clase para el fondo oscurecido del modal (si lo tienes)
+      className="deleteModal" 
+      overlayClassName="modalOverlay"
     >
       <h2 className="deleteMessage">¿Está seguro de eliminar este usuario?</h2>
       <div className="deleteButtons">

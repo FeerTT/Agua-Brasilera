@@ -12,21 +12,21 @@ datasource db {
 
 model Usuario {
   id Int @id @default(autoincrement())
-  nombre String 
-  apellido String 
+  nombre String
+  apellido String
   telefono String
-  mediciones Medicion[] @relation
+  active    Boolean  @default(true)
+  mediciones Medicion[] @relation(name: "mediciones")
 }
 
 model Medicion {
   id Int @id @default(autoincrement())
-  usuarioId Int 
+  usuarioId Int
   mesActual String
   consumoDelMes Int
   consumoDelMesAnterior Int
   tarifaExcedente Int
   totalAPagar Int
   valorFijo Int
-  usuario Usuario @relation(fields: [usuarioId], references: [id])
+  usuario Usuario @relation(name: "mediciones", fields: [usuarioId], references: [id])
 }
-
