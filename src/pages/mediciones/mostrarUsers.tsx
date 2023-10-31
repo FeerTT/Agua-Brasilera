@@ -6,7 +6,7 @@ import { crearMedicion, getUsers, } from '@/redux/actions/action';
 import { useDispatch } from 'react-redux';
 import UserForm from './formulaConsumo';
 import { eliminarTodasLasMediciones } from '@/redux/actions/action';
-import ReactPaginate from 'react-paginate';
+
 
 
 
@@ -18,23 +18,8 @@ const ComponenteDondeMostrarUsuarios = () => {
     const onDelete = () => {
       dispatch(eliminarTodasLasMediciones() as any);
     }
-    
-    const [currentPage, setCurrentPage] = useState(0); // Página actual seleccionada
-    const usersPerPage = 12; // Cantidad de usuarios por página
-  
-    const handlePageClick = (data:any) => {
-      const selectedPage = data.selected;
-      setCurrentPage(selectedPage);
-    };
-  
-    // Filtrar la lista de usuarios para la página actual
-    const paginatedUsers = userList.slice(
-      currentPage * usersPerPage,
-      (currentPage + 1) * usersPerPage
-    );
-  
 
- useEffect(() => {
+useEffect(() => {
   dispatch(getUsers() as any);
   }, []);
 //consumo del mes se resta de consumo del mes anterior, si es menos de 10k paga el valor fijo, si es > 10k paga por cada 1000 litros se le suma la tarifa por excedente
@@ -46,17 +31,19 @@ const [userFormDataList, setUserFormDataList] = useState<Array<{
   tarifaExcedente: number,
   totalAPagar: number,
   valorFijo: number
-}>[]>([]);
+}>>([]);
+
+
 
 const handleResultsCalculated = (results:any) => {
     setResultados((prevResultados) => [...prevResultados, results] as any);
   };
-
+  
   const handleGenerateArray = () => {
     const generatedArray = userList.map((user:any, index:any) => ({
       usuarioId: user.id,
       consumoDelMes: resultados[index] ? resultados[index].consumoDelMes : 0,
-      consumoDelMesAnterior: user.ultimaMedicion ? user.ultimaMedicion.consumoDelMes : 0,
+      consumoDelMesAnterior: user.ultimaMedicion ? user.ultimaMedicion.consumoDelMes: 0,
       tarifaExcedente: tarifaPorExcedenteGlobal !== 0 ? tarifaPorExcedenteGlobal : 0,
       totalAPagar: resultados[index] ? resultados[index].totalAPagar : 0,
       valorFijo: valorFijoGlobal !== 0 ? valorFijoGlobal : 0,
@@ -66,13 +53,7 @@ const handleResultsCalculated = (results:any) => {
       ...generatedArray,
     ]);
     dispatch(crearMedicion(generatedArray) as any);
-
-    window.location.reload();
   };
- console.log(userFormDataList, "CORROBORACIÓN")
-
-  
-
 
   return (
     <div>
@@ -111,10 +92,10 @@ const handleResultsCalculated = (results:any) => {
           </tr>
         </thead>
         <tbody>
-{paginatedUsers.map((user:any) => (
+{userList.map((user:any) => (
   <tr key={user.id}>
     <td>{user.id}</td>
-    <td>{user.apellido}, {user.nombre} </td>
+    <td>{user.nombre} ,{user.apellido} </td>
     <td>
           <UserForm user={user}   valorFijoGlobal={valorFijoGlobal} tarifaPorExcedenteGlobal={tarifaPorExcedenteGlobal} onResultsCalculated={handleResultsCalculated}/>
               </td>
@@ -164,20 +145,7 @@ const handleResultsCalculated = (results:any) => {
 </tbody>
       </table>
     </form>
-      <ReactPaginate
-        previousLabel={''}
-        nextLabel={''}
-        breakLabel={'...'}
-        pageCount={Math.ceil(userList.length / usersPerPage)}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageClick}
-        containerClassName={'pagination'}
-        className={'pages pagination'}
-        activeClassName={'active'}
-        pageClassName={'page-item'}
-        pageLinkClassName={'page-link'}
-      />
+
     <div className='divButtonFinal'>
        <button className='buttonCrear' onClick={handleGenerateArray}>Generar Mediciones</button>
        <button onClick={onDelete}>eliminar mediciones</button>

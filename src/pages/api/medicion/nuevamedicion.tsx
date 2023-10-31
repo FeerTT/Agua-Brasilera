@@ -21,21 +21,23 @@ export default async function handler(
           totalAPagar,
           valorFijo,
         } = medicionData;
+
+        console.log(medicionData, "CL EN EL BACK MEDICIONDATA")
         const fechaActual = new Date();
-        const fechaActualString =  fechaActual.toISOString().split('T')[0];
+        const fechaActualString =  fechaActual.toISOString();
         const consumoDelMesNum = parseInt(consumoDelMes);
-      const consumoDelMesAnteriorNum = parseInt(consumoDelMesAnterior);
-      const tarifaExcedenteNum = parseInt(tarifaExcedente);
-      const totalAPagarNum = parseInt(totalAPagar);
-      const valorFijoNum = parseInt(valorFijo);
+        const consumoDelMesAnteriorNum = parseInt(consumoDelMesAnterior);
+        const tarifaExcedenteNum = parseInt(tarifaExcedente);
+        const totalAPagarNum = parseInt(totalAPagar);
+        const valorFijoNum = parseInt(valorFijo);
         const nuevaMedicion = await prisma.medicion.create({
           data: {
             usuario: {
               connect: {
-                id: usuarioId, // Asociar la medición al usuario
+                id: usuarioId,
               },
             },
-            mesActual: fechaActualString, // Fecha actual
+            mesActual: fechaActualString, 
             consumoDelMes:consumoDelMesNum,
             consumoDelMesAnterior:consumoDelMesAnteriorNum,
             tarifaExcedente:tarifaExcedenteNum,
@@ -43,7 +45,7 @@ export default async function handler(
             valorFijo:valorFijoNum,
           },
         });
-  
+        console.log(nuevasMediciones, "cL NUEVAS MEDICIONES")
         nuevasMediciones.push(nuevaMedicion);
       }
   

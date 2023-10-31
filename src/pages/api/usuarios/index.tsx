@@ -35,7 +35,7 @@ export default async function handler(
         usuarios.map(async (usuario) => {
           const ultimaMedicion = await prisma.medicion.findFirst({
             where: { usuarioId: usuario.id },
-            orderBy: { mesActual: 'desc' }, // Ordenar por la fecha más reciente
+            orderBy: { mesActual: 'desc' }, 
           });
           return { ...usuario, ultimaMedicion };
         })
