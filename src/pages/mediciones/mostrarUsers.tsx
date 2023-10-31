@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Listado from "../users/list";
@@ -7,11 +8,13 @@ import UserForm from "./formulaConsumo";
 import { eliminarTodasLasMediciones } from "@/redux/actions/action";
 import ReactPaginate from "react-paginate";
 
+
 const ComponenteDondeMostrarUsuarios = () => {
   const userList = useSelector((state: any) => state.userReducer.userList);
   const dispatch = useDispatch();
   const [valorFijoGlobal, setValorFijoGlobal] = useState(0);
   const [tarifaPorExcedenteGlobal, setTarifaPorExcedenteGlobal] = useState(0);
+
   const [errorValorFijo, setErrorValorFijo] = useState("");
   const [errorTarifa, setErrorTarifa] = useState("");
 
@@ -49,9 +52,11 @@ const ComponenteDondeMostrarUsuarios = () => {
     }>[]
   >([]);
 
+
   const handleResultsCalculated = (results: any) => {
     setResultados((prevResultados) => [...prevResultados, results] as any);
   };
+
 
   const handleGenerateArray = (e: any) => {
     e.preventDefault();
@@ -98,6 +103,7 @@ const ComponenteDondeMostrarUsuarios = () => {
         : 0,
       tarifaExcedente:
         tarifaPorExcedenteGlobal !== 0 ? tarifaPorExcedenteGlobal : 0,
+
       totalAPagar: resultados[index] ? resultados[index].totalAPagar : 0,
       valorFijo: valorFijoGlobal !== 0 ? valorFijoGlobal : 0,
     }));
@@ -107,10 +113,8 @@ const ComponenteDondeMostrarUsuarios = () => {
     ]);
     console.log("arrsasss", generatedArray)
     dispatch(crearMedicion(generatedArray) as any);
-
-    window.location.reload();
   };
-  console.log(userFormDataList, "CORROBORACIÓN");
+
 
   return (
     <div>
@@ -153,7 +157,6 @@ const ComponenteDondeMostrarUsuarios = () => {
         />
         {errorTarifa && <p style={{ color: "red" }}>{errorTarifa}</p>}
       </div>
-
       <form>
         <table className="rwd-table">
           <thead>

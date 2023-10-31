@@ -3,8 +3,10 @@ import Link from 'next/link';
 const UsersPage = () => {
 
   return (
+    <>
+    
     <div className="users-container">
-      <h1 className="users-title">DASHBOARD USUARIOS</h1>
+      <h1 className="users-title"><strong>DASHBOARD USUARIOS</strong></h1>
       <div className="button-container">
         <Link href="/users/list">
           <button className="view-modify-button">
@@ -18,6 +20,12 @@ const UsersPage = () => {
         </Link>
       </div>
     </div>
+    <div className='divRegresar'>
+      <Link href="/">
+          <button className='regresarUsuario'>Regresar</button>
+          </Link>
+    </div>
+    </>
   );
 };
 
