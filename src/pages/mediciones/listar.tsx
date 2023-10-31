@@ -1,91 +1,152 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ReactPaginate from "react-paginate";
 import { getMediciones } from "@/redux/actions/action";
 
 const Listado: React.FC = () => {
   const dispatch = useDispatch();
-  const mediciones = useSelector((state: any) => state.userReducer.medicionList);
+  const mediciones = useSelector(
+    (state: any) => state.userReducer.medicionList
+  );
   const [selectedDate, setSelectedDate] = useState("");
   const [searchName, setSearchName] = useState("");
+  const [selectedMediciones, setSelectedMediciones] = useState<any[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  
+  const toggleModal = () => {
+    setModalOpen(!modalOpen);
+  };
+
   useEffect(() => {
     dispatch(getMediciones() as any);
   }, [dispatch]);
 
-
-  const sortByDate = () => {
-    const sorted = [...mediciones].sort((a, b) => {
-      return new Date(b.mesActual).getTime() - new Date(a.mesActual).getTime();
+  const groupByDate = () => {
+    const grouped: { [key: string]: any[] } = {};
+    mediciones.forEach((medicion: any) => {
+      const dateKey = medicion.mesActual;
+      if (!grouped[dateKey]) {
+        grouped[dateKey] = [];
+      }
+      grouped[dateKey].push(medicion);
     });
-    return sorted;
+    return grouped;
   };
 
+  const groupedMediciones = groupByDate();
 
+  const showMedicionDetails = (date: string) => {
+    const medicionesForDate = groupedMediciones[date];
+    setSelectedMediciones(medicionesForDate || []);
+    setSelectedDate(date);
+    toggleModal();
+  };
 
-  const filterByDate = (date:string, name:string) => {
-    return mediciones.filter((medicion:any) => {
+  const filterByDate = (date: string, name: string) => {
+    return mediciones.filter((medicion: any) => {
       const fechaValid = !date || medicion.mesActual.includes(date);
-      const nameValid = !name || (medicion.usuario.nombre + ' ' + medicion.usuario.apellido).toLowerCase().includes(name.toLowerCase());
+      const nameValid =
+        !name ||
+        (medicion.usuario.nombre + " " + medicion.usuario.apellido)
+          .toLowerCase()
+          .includes(name.toLowerCase());
       return fechaValid && nameValid;
     });
   };
+
   const handleNameSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchName(e.target.value);
   };
+
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const date = e.target.value;
     setSelectedDate(date);
+    setSelectedMediciones([]);
   };
 
-  const filteredMediciones = selectedDate ? filterByDate(selectedDate, searchName) : mediciones;
-
-
+  const filteredMediciones = selectedDate
+    ? filterByDate(selectedDate, searchName)
+    : mediciones;
 
   return (
     <div>
-      {" "}
       <h1>Listado de Mediciones</h1>
-      <label>Seleccionar Fecha: 
+      <label>
+        Seleccionar Fecha:
         <input type="text" value={selectedDate} onChange={handleDateChange} />
       </label>
-      <label>Buscar por Nombre o Apellido:
+      <label>
+        Buscar por Nombre o Apellido:
         <input type="text" value={searchName} onChange={handleNameSearch} />
       </label>
       <table className="rwd-table">
-      
-  <thead>
-    <tr>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Mes</th>
+            <th>Consumo del Mes</th>
+            <th>Consumo del Mes Anterior</th>
+            <th>Valor Fijo</th>
+            <th>Tarifa por Excedente</th>
+            <th>Total a Pagar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.keys(groupedMediciones)
+            .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
+            .map((date: string, index: number) => (
+              <tr key={index} onClick={() => showMedicionDetails(date)}>
+                <td colSpan={9}>{date}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
 
-      <th>ID</th>
-      <th>Nombre</th>
-      <th>Apellido</th>
-      <th>Mes</th>
-      <th>Consumo del Mes</th>
-      <th>Consumo del Mes Anterior</th>
-      <th>Valor Fijo</th>
-      <th>Tarifa por Excedente</th>
-      <th>Total a Pagar</th>
-    </tr>
-  </thead>
-  <tbody>
-  {filterByDate(selectedDate, searchName).map((medicion: any, index: number) => (
-  <tr key={index}>
-    <td>{medicion.usuario.id}</td>
-    <td>{medicion.usuario.nombre}</td>
-    <td>{medicion.usuario.apellido}</td>
-    <td>{medicion.mesActual}</td> {/* Muestra la fecha siempre */}
-    <td>{medicion.consumoDelMes}</td>
-    <td>{medicion.consumoDelMesAnterior}</td>
-    <td>{medicion.valorFijo}</td>
-    <td>{medicion.tarifaExcedente}</td>
-    <td>{medicion.totalAPagar}</td>
-    <br></br>
-  </tr>
-))}
-</tbody>
-</table>
+      {modalOpen && (
+        <div className="modal-listado">
+          <div className="modal-background-listado">
+            <span className="close-listado" onClick={toggleModal}>
+              &times;
+            </span>
+            <h2 className="medition-detail">
+              Detalles de Mediciones para {selectedDate}
+            </h2>
+            <div className="table-container">
+              <table className="rwd-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Mes</th>
+                    <th>Consumo del Mes</th>
+                    <th>Consumo del Mes Anterior</th>
+                    <th>Valor Fijo</th>
+                    <th>Tarifa por Excedente</th>
+                    <th>Total a Pagar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {selectedMediciones.map((medicion: any, index: number) => (
+                    <tr key={index}>
+                      <td>{medicion.usuario.id}</td>
+                      <td>{medicion.usuario.nombre}</td>
+                      <td>{medicion.usuario.apellido}</td>
+                      <td>{medicion.mesActual}</td>
+                      <td>{medicion.consumoDelMes}</td>
+                      <td>{medicion.consumoDelMesAnterior}</td>
+                      <td>{medicion.valorFijo}</td>
+                      <td>{medicion.tarifaExcedente}</td>
+                      <td>{medicion.totalAPagar}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
