@@ -21,8 +21,6 @@ export default async function handler(
           totalAPagar,
           valorFijo,
         } = medicionData;
-
-        console.log(medicionData, "CL EN EL BACK MEDICIONDATA")
         const fechaActual = new Date();
         const fechaActualString =  fechaActual.toISOString();
         const consumoDelMesNum = parseInt(consumoDelMes);
@@ -45,7 +43,6 @@ export default async function handler(
             valorFijo:valorFijoNum,
           },
         });
-        console.log(nuevasMediciones, "cL NUEVAS MEDICIONES")
         nuevasMediciones.push(nuevaMedicion);
       }
   

@@ -5,7 +5,7 @@ function UserForm({ user, onResultsCalculated, valorFijoGlobal, tarifaPorExceden
   const [formData, setFormData] = useState<any>({
     usuarioId: user.id,
     consumoDelMesAnterior: user.ultimaMedicion ? user.ultimaMedicion.consumoDelMes : 0,
-    consumoDelMes: 0,
+    consumoDelMes: user.ultimaMedicion ? user.ultimaMedicion.consumoDelMes : 0,
     valorFijoGlobal: valorFijoGlobal !== 0 ? valorFijoGlobal : 0,
     tarifaPorExcedenteGlobal: tarifaPorExcedenteGlobal !== 0 ? tarifaPorExcedenteGlobal : 0,
     excedenteEnLitros: 0,
@@ -16,7 +16,10 @@ function UserForm({ user, onResultsCalculated, valorFijoGlobal, tarifaPorExceden
     event.preventDefault();
     const { consumoDelMes, consumoDelMesAnterior } = formData;
     const consumoActual = parseInt(consumoDelMes);
-  
+    if (consumoActual < consumoDelMesAnterior) {
+      alert("El consumo del mes actual no puede ser menor que el consumo del mes anterior.");
+      return;
+    }
     const excedenteEnLitros = consumoActual - consumoDelMesAnterior;
     let totalAPagar = valorFijoGlobal;
 
@@ -28,7 +31,8 @@ function UserForm({ user, onResultsCalculated, valorFijoGlobal, tarifaPorExceden
       totalAPagar = Number(total) + Number(valorFijoGlobal);
     }
   } else {
-    console.log("Los valores de Valor Fijo y Tarifa por Excedente no pueden ser 0.");
+    alert("Los valores de Valor Fijo y Tarifa por Excedente no pueden ser 0.");
+    return;
   }
 
     setFormData((prevData:any) => ({
