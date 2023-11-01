@@ -90,17 +90,24 @@ const Listado = () => {
     <main>
       <h1 className='h1List'>Usuarios agua potable</h1>
       
+    <div className='contenedorBotonMas'>
       <Link href="/users">
-      <button className='regresarUsuario'>Regresar</button>
+        <button className='regresarUsuario'>Regresar</button>
       </Link>
+      <div className='sortContainer'>
+        <label className='sort' htmlFor="sort">Ordenar por:</label>
+        <select id="sort" value={sortOption} onChange={handleSortChange}>
+          <option value="apellido-asc">Apellido A-Z</option>
+          <option value="apellido-desc">Apellido Z-A</option>
+          <option value="nombre-asc">Nombre A-Z</option>
+          <option value="nombre-desc">Nombre Z-A</option>
+        </select>
+      </div>
+      <Link className='botonMas' href="/users/add"></Link>
+    </div>
+      
       <div className='modelo-conteiner'>
-      <label className='sort-list' htmlFor="sort">Ordenar por:</label>
-      <select id="sort" value={sortOption} onChange={handleSortChange}>
-        <option value="apellido-asc">Apellido A-Z</option>
-        <option value="apellido-desc">Apellido Z-A</option>
-        <option value="nombre-asc">Nombre A-Z</option>
-        <option value="nombre-desc">Nombre Z-A</option>
-      </select>
+      
       </div>
       
       <table className="rwd-table">

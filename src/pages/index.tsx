@@ -21,9 +21,10 @@ const router = useRouter();
     router.push('/users')
   }
 
+  
   return (
-    <div className='divBackground'>
-      <h1 className='h1InicialApp'>App para la gestión usuarios agua potable</h1>
+    <div className='app-container'>
+      <h1 className='h1InicialApp'>App para la gestión de usuarios y consumos de agua potable Aldea Brasilera </h1>
     <div className='gestionInicial'>
     <button onClick={onClickMediciones} className='botonIrMediciones'>
         PANEL MEDICIONES
