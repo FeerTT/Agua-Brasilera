@@ -15,7 +15,10 @@ const Listado: React.FC = () => {
   const toggleModal = () => {
     setModalOpen(!modalOpen);
   };
-
+  const truncateDate = (date: string) => {
+    const fecha = new Date(date);
+    return `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}`;
+  };
   useEffect(() => {
     dispatch(getMediciones() as any);
   }, [dispatch]);
@@ -23,7 +26,7 @@ const Listado: React.FC = () => {
   const groupByDate = () => {
     const grouped: { [key: string]: any[] } = {};
     mediciones.forEach((medicion: any) => {
-      const dateKey = medicion.mesActual;
+      const dateKey = truncateDate(medicion.mesActual); // Truncar la fecha
       if (!grouped[dateKey]) {
         grouped[dateKey] = [];
       }
@@ -52,6 +55,8 @@ const Listado: React.FC = () => {
       return fechaValid && nameValid;
     });
   };
+
+ 
 
   const handleNameSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchName(e.target.value);
@@ -133,7 +138,7 @@ const Listado: React.FC = () => {
                       <td>{medicion.usuario.id}</td>
                       <td>{medicion.usuario.nombre}</td>
                       <td>{medicion.usuario.apellido}</td>
-                      <td>{medicion.mesActual}</td>
+                      <td>{truncateDate(medicion.mesActual)}</td>
                       <td>{medicion.consumoDelMes}</td>
                       <td>{medicion.consumoDelMesAnterior}</td>
                       <td>{medicion.valorFijo}</td>

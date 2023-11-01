@@ -381,8 +381,15 @@ a {
 }
 
 
+.sortContainer {
+  display: flex;
+  align-items: center;
+}
 
-
+.sort {
+  margin-right: 10px; /* Ajusta el margen según tus necesidades */
+  font-size: 22px;
+}
 
 
 
@@ -399,6 +406,7 @@ a {
   width: 200px; /* Ajusta el ancho según tus necesidades */
   height: 40px; /* Ajusta la altura según tus necesidades */
 }
+
 #sort option {
   font-size: 16px; /* Ajusta el tamaño de fuente de las opciones según tus necesidades */
   padding: 8px 12px; /* Ajusta el espacio interno de las opciones según tus necesidades */
@@ -462,7 +470,7 @@ a {
   display: flex;
   justify-content: center;
   position: relative;
-  top: px;
+  margin: 20px;
 }
 
 .users-container {
@@ -608,11 +616,12 @@ a {
 
 .botonIrMediciones{
   background-color: #007bff;
-  color: white;
-  border: none;
   padding: 10px 20px;
   cursor: pointer;
+  border: solid 2px;
+  border-radius: 10px;
   margin-right: 10px;
+  font-size: 22px;
 }
 
 .botonIrMediciones:hover{
@@ -620,16 +629,36 @@ a {
 }
 
 .gestionInicial{
-  justify-content: center;
+  justify-content: space-around;
   display: flex;
-  margin-top: 100px;
+  margin-top: 200px;
+  width: 100%;
+  height: 120px;
+
 }
 .h1InicialApp{
   display: flex;
   margin-top: 30px;
+  font-size: 40px;
   justify-content: center;
+  margin-left: 25%;
+  border-radius: 10px;
+  height: 300px;
+  width: 800px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+.contenedorBotonMas {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
+.botonMas {
+  background-image: url(../../public/mas.png);
+  width: 64px; 
+  height: 64px; 
+  background-repeat: no-repeat;
+}
 .divRegresar{
   display: flex;
   justify-content: center;
@@ -638,7 +667,6 @@ a {
 #backgroundImg{
   background-image: url(../../public/wallpaperflare.com_wallpaper\ \(3\).jpg);
   background-size: cover;
-
 }
 
 .modal-background-listado {
@@ -690,3 +718,12 @@ a {
   overflow-y: auto;
 }
 
+.app-container {
+  width: 100%;
+  height: 800px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  margin: 20px;
+}
