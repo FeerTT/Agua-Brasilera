@@ -1,13 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from "react";
 
-
-function UserForm({ user, onResultsCalculated, valorFijoGlobal, tarifaPorExcedenteGlobal }: any) {
+function UserForm({
+  user,
+  onResultsCalculated,
+  valorFijoGlobal,
+  tarifaPorExcedenteGlobal,
+}: any) {
   const [formData, setFormData] = useState<any>({
     usuarioId: user.id,
-    consumoDelMesAnterior: user.ultimaMedicion ? user.ultimaMedicion.consumoDelMes : 0,
-    consumoDelMes: user.ultimaMedicion ? user.ultimaMedicion.consumoDelMes : 0,
+    consumoDelMesAnterior: user.ultimaMedicion
+      ? user.ultimaMedicion.consumoDelMesAnterior
+      : 0,
+    consumoDelMes: user.ultimaMedicion
+      ? parseInt(user.ultimaMedicion.consumoDelMes)
+      : 0,
     valorFijoGlobal: valorFijoGlobal !== 0 ? valorFijoGlobal : 0,
-    tarifaPorExcedenteGlobal: tarifaPorExcedenteGlobal !== 0 ? tarifaPorExcedenteGlobal : 0,
+    tarifaPorExcedenteGlobal:
+      tarifaPorExcedenteGlobal !== 0 ? tarifaPorExcedenteGlobal : 0,
     excedenteEnLitros: 0,
     totalAPagar: 0,
   });
@@ -17,45 +26,57 @@ function UserForm({ user, onResultsCalculated, valorFijoGlobal, tarifaPorExceden
     const { consumoDelMes, consumoDelMesAnterior } = formData;
     const consumoActual = parseInt(consumoDelMes);
     if (consumoActual < consumoDelMesAnterior) {
-      alert("El consumo del mes actual no puede ser menor que el consumo del mes anterior.");
+      alert(
+        "El consumo del mes actual no puede ser menor que el consumo del mes anterior."
+      );
       return;
     }
     const excedenteEnLitros = consumoActual - consumoDelMesAnterior;
     let totalAPagar = valorFijoGlobal;
 
-  if (valorFijoGlobal !== 0 && tarifaPorExcedenteGlobal !== 0) {
-    if (excedenteEnLitros > 10) {
-      const excedido = excedenteEnLitros - 10;
-      const milesLitrosExcedente = Math.ceil(excedido / 1);
-      const total = milesLitrosExcedente * Number(tarifaPorExcedenteGlobal);
-      totalAPagar = Number(total) + Number(valorFijoGlobal);
+    if (valorFijoGlobal !== 0 && tarifaPorExcedenteGlobal !== 0) {
+      if (excedenteEnLitros > 10) {
+        const excedido = excedenteEnLitros - 10;
+        const milesLitrosExcedente = Math.ceil(excedido / 1);
+        const total = milesLitrosExcedente * Number(tarifaPorExcedenteGlobal);
+        totalAPagar = Number(total) + Number(valorFijoGlobal);
+      }
+    } else {
+      alert(
+        "Los valores de Valor Fijo y Tarifa por Excedente no pueden ser 0."
+      );
+      return;
     }
-  } else {
-    alert("Los valores de Valor Fijo y Tarifa por Excedente no pueden ser 0.");
-    return;
-  }
 
-    setFormData((prevData:any) => ({
+    setFormData((prevData: any) => ({
       ...prevData,
       excedenteEnLitros,
       totalAPagar,
       consumoDelMes,
     }));
+    console.log("en la formula, formData", formData);
 
-    const { usuarioId, } = formData;
-    onResultsCalculated({ usuarioId, excedenteEnLitros, totalAPagar, consumoDelMes });
+    const { usuarioId } = formData;
+    console.log(usuarioId);
+    onResultsCalculated({
+      usuarioId,
+      excedenteEnLitros,
+      totalAPagar,
+      consumoDelMes,
+      consumoDelMesAnterior,
+    });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: parseInt(value),
     });
   };
 
   return (
-    <div>
+    <td>
       <input
         type="number"
         placeholder="Consumo del Mes"
@@ -64,12 +85,11 @@ function UserForm({ user, onResultsCalculated, valorFijoGlobal, tarifaPorExceden
         onChange={handleInputChange}
         onBlur={handleCalculationClick}
       />
-    </div>
+    </td>
   );
 }
 
 export default UserForm;
-
 
 // function UserForm({ user, onResultsCalculated,  valorFijoGlobal, tarifaPorExcedenteGlobal, } : any) {
 
@@ -82,7 +102,6 @@ export default UserForm;
 //     excedenteEnLitros: 0,
 //     totalAPagar: 0, // Debes calcularlo en base a los datos del usuario
 //   });
-   
 
 //   console.log (tarifaPorExcedenteGlobal, valorFijoGlobal, "1")
 //   useEffect(() => {
@@ -110,7 +129,6 @@ export default UserForm;
 //       excedenteEnLitros,
 //       totalAPagar,
 //     }));
-    
 
 //   }, [formData.consumoDelMes, formData.consumoDelMesAnterior, valorFijoGlobal, tarifaPorExcedenteGlobal, ]);
 
@@ -119,7 +137,6 @@ export default UserForm;
 //     const { excedenteEnLitros, totalAPagar, usuarioId, consumoDelMes } = formData;
 //     onResultsCalculated({ excedenteEnLitros, totalAPagar,usuarioId, consumoDelMes });
 //   };
-
 
 //   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 //     const { name, value } = e.target;
@@ -141,7 +158,7 @@ export default UserForm;
 //       />
 //     {/* <button onClick={handleCalculationClick}>Confirmar</button> */}
 //   </div>
-    
+
 //   );
 // }
 

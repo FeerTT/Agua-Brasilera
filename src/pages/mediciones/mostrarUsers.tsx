@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Listado from "../users/list";
-import { crearMedicion, getUsers } from "@/redux/actions/action";
+import {
+  crearMedicion,
+  getUsers,
+  updateUserList,
+} from "@/redux/actions/action";
 import { useDispatch } from "react-redux";
 import UserForm from "./formulaConsumo";
 import { eliminarTodasLasMediciones } from "@/redux/actions/action";
@@ -14,7 +18,6 @@ const ComponenteDondeMostrarUsuarios = () => {
   const [tarifaPorExcedenteGlobal, setTarifaPorExcedenteGlobal] = useState(0);
   const [errorValorFijo, setErrorValorFijo] = useState("");
   const [errorTarifa, setErrorTarifa] = useState("");
-  const [resultados, setResultados] = useState<any[]>([]);
   const [userFormDataList, setUserFormDataList] = useState<
     Array<{
       usuarioId: number;
@@ -43,55 +46,92 @@ const ComponenteDondeMostrarUsuarios = () => {
     (currentPage + 1) * usersPerPage
   );
 
+
   useEffect(() => {
     dispatch(getUsers() as any);
   }, []);
   //consumo del mes se resta de consumo del mes anterior, si es menos de 10k paga el valor fijo, si es > 10k paga por cada 1000 litros se le suma la tarifa por excedente
 
   const handleResultsCalculated = (results: any) => {
-    setResultados((prevResultados) => [...prevResultados, results] as any);
+    setUserFormDataList((prevList: any) => {
+      // Verificar si el usuario ya está en la lista, para actualizar sus resultados
+      const existingUserIndex = prevList.findIndex(
+        (item: any) => item.usuarioId === results.usuarioId
+      );
+      if (existingUserIndex !== -1) {
+        const updatedList = [...prevList];
+        updatedList[existingUserIndex] = {
+          ...updatedList[existingUserIndex],
+          totalAPagar: results.totalAPagar,
+          consumoDelMes: results.consumoDelMes,
+          consumoDelMesAnterior: results.consumoDelMesAnterior,
+          valorFijo: valorFijoGlobal,
+          tarifaExcedente: tarifaPorExcedenteGlobal,
+          excedenteEnLitros: results.excedenteEnLitros,
+          // ... otros campos que se deban actualizar con los resultados
+        };
+        return updatedList;
+      } else {
+        // Si no existe, añadir un nuevo elemento a la lista
+        return [
+          ...prevList,
+          {
+            usuarioId: results.usuarioId,
+            totalAPagar: results.totalAPagar,
+            consumoDelMes: results.consumoDelMes,
+            consumoDelMesAnterior: results.consumoDelMesAnterior,
+            valorFijo: valorFijoGlobal,
+            tarifaExcedente: tarifaPorExcedenteGlobal,
+            excedenteEnLitros: results.excedenteEnLitros,
+            // ... otros campos que se deban agregar con los resultados
+          },
+        ];
+      }
+    });
+    console.log(userList);
   };
 
   const handleGenerateArray = (e: any) => {
     e.preventDefault();
-    if (!valorFijoGlobal || isNaN(Number(valorFijoGlobal)) || valorFijoGlobal === 0) {
+    if (
+      !valorFijoGlobal ||
+      isNaN(Number(valorFijoGlobal)) ||
+      valorFijoGlobal === 0
+    ) {
       setErrorValorFijo("Este campo es obligatorio y no puede quedar vacio.");
       setErrorTarifa("");
       return;
     }
-  
-    if (!tarifaPorExcedenteGlobal || isNaN(Number(tarifaPorExcedenteGlobal)) || tarifaPorExcedenteGlobal === 0) {
+
+    if (
+      !tarifaPorExcedenteGlobal ||
+      isNaN(Number(tarifaPorExcedenteGlobal)) ||
+      tarifaPorExcedenteGlobal === 0
+    ) {
       setErrorValorFijo("");
       setErrorTarifa("Este campo es obligatorio y no puede quedar vacio.");
       return;
     }
-  
+
     setErrorValorFijo("");
     setErrorTarifa("");
-    const someUnfilledConsumption = userList.some((user: any) => {
-      return resultados.every((result) => result.usuarioId !== user.id) || !user.ultimaMedicion;
-    });
-  
-    if (someUnfilledConsumption) {
-      alert("Ups! Parece que falta calcular el total a pagar de algunos usuarios.");
+    // const someUnfilledConsumption = userList.some((user: any) => {
+    //   return resultados.every((result) => result.usuarioId !== user.id) || !user.ultimaMedicion;
+    // });
+
+    // if (someUnfilledConsumption) {
+    //   alert("Ups! Parece que falta calcular el total a pagar de algunos usuarios.");
+    //   return;
+    // }
+    if (userFormDataList.length < userList.length) {
+      alert(
+        "Ups! Parece que falta calcular el total a pagar de algunos usuarios."
+      );
       return;
     }
-    const generatedArray = userList.map((user: any, index: any) => ({
-      usuarioId: user.id,
-      consumoDelMes: resultados[index] ? resultados[index].consumoDelMes : 0,
-      consumoDelMesAnterior: user.ultimaMedicion
-        ? user.ultimaMedicion.consumoDelMes
-        : 0,
-      tarifaExcedente:
-        tarifaPorExcedenteGlobal !== 0 ? tarifaPorExcedenteGlobal : 0,
-      totalAPagar: resultados[index] ? resultados[index].totalAPagar : 0,
-      valorFijo: valorFijoGlobal !== 0 ? valorFijoGlobal : 0,
-    }));
-    setUserFormDataList((prevUserFormDataList) => [
-      ...prevUserFormDataList,
-      ...generatedArray,
-    ]);
-    dispatch(crearMedicion(generatedArray) as any);
+    console.log("el array que se crea", userFormDataList);
+    dispatch(crearMedicion(userFormDataList as any) as any);
+    setUserFormDataList([]);
 
     window.location.reload();
   };
@@ -110,8 +150,9 @@ const ComponenteDondeMostrarUsuarios = () => {
           value={valorFijoGlobal}
           onChange={(e) => {
             const value = e.target.value;
+            const parseValue = parseInt(value);
             if (!isNaN(Number(value))) {
-              setValorFijoGlobal(value as any);
+              setValorFijoGlobal(parseValue as any);
               setErrorValorFijo("");
             } else {
               setErrorValorFijo("Solo se pueden ingresar valores númericos.");
@@ -128,8 +169,9 @@ const ComponenteDondeMostrarUsuarios = () => {
           value={tarifaPorExcedenteGlobal}
           onChange={(e) => {
             const value = e.target.value;
+            const parseValue = parseInt(value);
             if (!isNaN(Number(value))) {
-              setTarifaPorExcedenteGlobal(value as any);
+              setTarifaPorExcedenteGlobal(parseValue as any);
               setErrorTarifa("");
             } else {
               setErrorTarifa("Solo se pueden ingresar valores númericos.");
@@ -138,8 +180,6 @@ const ComponenteDondeMostrarUsuarios = () => {
         />
         {errorTarifa && <p style={{ color: "red" }}>{errorTarifa}</p>}
       </div>
-
-
 
       <form>
         <table className="rwd-table">
@@ -171,20 +211,14 @@ const ComponenteDondeMostrarUsuarios = () => {
                     onResultsCalculated={handleResultsCalculated}
                   />
                 </td>
-                {user.ultimaMedicion ? (
-                  <>
-                    <td>{user.ultimaMedicion.consumoDelMes}</td>
-                  </>
-                ) : (
-                  <>
-                    <td>0</td>
-                  </>
-                )}
+
+                <td>{user.ultimaMedicion.consumoDelMesAnterior}</td>
+
                 <td>{valorFijoGlobal}</td>
                 <td>{tarifaPorExcedenteGlobal}</td>
 
                 <td>
-                  {resultados
+                  {userFormDataList
                     .filter((resultado: any) => resultado.usuarioId === user.id)
                     .map((resultado: any, index: any, array: any) => {
                       if (index === array.length - 1) {
@@ -199,7 +233,7 @@ const ComponenteDondeMostrarUsuarios = () => {
                     })}
                 </td>
                 <td>
-                  {resultados
+                  {userFormDataList
                     .filter((resultado: any) => resultado.usuarioId === user.id)
                     .map((resultado: any, index: any, array: any) => {
                       if (index === array.length - 1) {

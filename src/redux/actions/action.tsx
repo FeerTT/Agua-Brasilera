@@ -11,6 +11,7 @@ export const GET_MEDICIONES = createAction<Medicion[]>("GET_MEDICIONES");
 export const CREAR_MEDICION = createAction<Medicion[]>("CREAR_MEDICION");
 export const getMedicionMesAnterior = createAction("GET_MEDICION_MES_ANTERIOR");
 export const ELIMINAR_MEDICION = createAction<Medicion[]>("ELIMINAR_MEDICIONES")
+export const UPDATE_USER_LIST = createAction<[]>("UPDATE_USER_LIST")
 
 export const eliminarTodasLasMediciones = () => {
   return async (dispatch: Dispatch) => {
@@ -28,10 +29,10 @@ export const eliminarTodasLasMediciones = () => {
 export const getUsers = () => {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await axios.get<Usuario[]>(
+      const response = await axios.get<[]>(
         "http://localhost:3000/api/usuarios"
       );
-      const data = response.data;
+      const {data } = response;
       dispatch(GET_USER_LIST(data));
     } catch (error) {
       console.error("Error al obtener la lista de usuarios:", error);
@@ -117,3 +118,9 @@ export const crearMedicion = (form:[{}]) => {
   }
 }
 
+export const updateUserList = (updatedList: any) => {
+  return {
+    type: 'UPDATE_USER_LIST',
+    payload: updatedList,
+  };
+};
