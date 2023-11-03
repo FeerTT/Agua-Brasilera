@@ -21,6 +21,18 @@ const EditUserModal = ({ user, onSave, onCancel }) => {
   };
 
   const handleSave = () => {
+    const nameRegex = /^[A-Za-z ]{1,20}$/; 
+    const phoneRegex = /^[0-9+\- ]{0,25}$/; 
+
+    if (!formData.nombre.match(nameRegex) || !formData.apellido.match(nameRegex)) {
+      alert('Nombre y apellido deben contener solo letras y espacios, y tener un máximo de 20 caracteres.');
+      return;
+    }
+
+    if (!formData.telefono.match(phoneRegex)) {
+      alert('El teléfono debe contener solo números, +, -, y espacios, y tener un máximo de 25 caracteres.');
+      return;
+    }
     dispatch(modificarUsers(user.id, formData))
       .then((response) => {
         onCancel();

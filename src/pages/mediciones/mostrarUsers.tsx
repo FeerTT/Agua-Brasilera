@@ -10,6 +10,8 @@ import { useDispatch } from "react-redux";
 import UserForm from "./formulaConsumo";
 import { eliminarTodasLasMediciones } from "@/redux/actions/action";
 import ReactPaginate from "react-paginate";
+import Link from "next/link";
+
 
 const ComponenteDondeMostrarUsuarios = () => {
   const userList = useSelector((state: any) => state.userReducer.userList);
@@ -29,7 +31,7 @@ const ComponenteDondeMostrarUsuarios = () => {
     }>[]
   >([]);
   const [currentPage, setCurrentPage] = useState(0); // Página actual seleccionada
-  const usersPerPage = 15; // Cantidad de usuarios por página
+  const usersPerPage = 5; // Cantidad de usuarios por página
 
   const onDelete = () => {
     dispatch(eliminarTodasLasMediciones() as any);
@@ -123,6 +125,7 @@ const ComponenteDondeMostrarUsuarios = () => {
     //   alert("Ups! Parece que falta calcular el total a pagar de algunos usuarios.");
     //   return;
     // }
+
     if (userFormDataList.length < userList.length) {
       alert(
         "Ups! Parece que falta calcular el total a pagar de algunos usuarios."
@@ -132,6 +135,7 @@ const ComponenteDondeMostrarUsuarios = () => {
     console.log("el array que se crea", userFormDataList);
     dispatch(crearMedicion(userFormDataList as any) as any);
     setUserFormDataList([]);
+
 
     window.location.reload();
   };
@@ -145,6 +149,7 @@ const ComponenteDondeMostrarUsuarios = () => {
           <strong>VALOR FIJO PARA LOS 10.000 LITROS INICIALES:</strong>
         </p>
         <input
+          className="inputConsumoMes"
           type="text"
           placeholder="Valor Fijo"
           value={valorFijoGlobal}
@@ -164,6 +169,7 @@ const ComponenteDondeMostrarUsuarios = () => {
           <strong>VALOR EXCEDENTE CADA 1000 LITROS:</strong>
         </p>
         <input
+          className="inputConsumoMes"
           type="text"
           placeholder="Tarifa por Excedente"
           value={tarifaPorExcedenteGlobal}

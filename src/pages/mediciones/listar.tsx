@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMediciones } from "@/redux/actions/action";
-
+import generatePDF from "../mediciones/pdf"
+import ReactPaginate from "react-paginate";
+import Link from "next/link";
 const Listado: React.FC = () => {
   const dispatch = useDispatch();
   const mediciones = useSelector(
@@ -11,14 +13,21 @@ const Listado: React.FC = () => {
   const [searchName, setSearchName] = useState("");
   const [selectedMediciones, setSelectedMediciones] = useState<any[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0); // Agrega el estado currentPage
+  const usersPerPage = 10;
 
+  const handlePageChange = (selectedPage: { selected: number }) => {
+    setCurrentPage(selectedPage.selected);
+  };
   const toggleModal = () => {
     setModalOpen(!modalOpen);
   };
+
   const truncateDate = (date: string) => {
     const fecha = new Date(date);
     return `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}`;
   };
+
   useEffect(() => {
     dispatch(getMediciones() as any);
   }, [dispatch]);
@@ -38,63 +47,38 @@ const Listado: React.FC = () => {
   const groupedMediciones = groupByDate();
 
   const showMedicionDetails = (date: string) => {
-    const medicionesForDate = groupedMediciones[date];
-    setSelectedMediciones(medicionesForDate || []);
+    const medicionesForDate = groupedMediciones[date] || [];
+    setSelectedMediciones(medicionesForDate);
     setSelectedDate(date);
+    setCurrentPage(0); 
     toggleModal();
   };
-
-  const filterByDate = (date: string, name: string) => {
-    return mediciones.filter((medicion: any) => {
-      const fechaValid = !date || medicion.mesActual.includes(date);
-      const nameValid =
-        !name ||
-        (medicion.usuario.nombre + " " + medicion.usuario.apellido)
-          .toLowerCase()
-          .includes(name.toLowerCase());
-      return fechaValid && nameValid;
-    });
-  };
-
- 
-
-  const handleNameSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchName(e.target.value);
-  };
-
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const date = e.target.value;
-    setSelectedDate(date);
-    setSelectedMediciones([]);
-  };
-
-  const filteredMediciones = selectedDate
-    ? filterByDate(selectedDate, searchName)
-    : mediciones;
-
+  // const showMedicionDetails = (date: string) => {
+  //   const medicionesForDate = groupedMediciones[date];
+  //   setSelectedMediciones(medicionesForDate || []);
+  //   setSelectedDate(date);
+  //   toggleModal();
+  // };
+  const indexOfLastUser = (currentPage + 1) * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = selectedMediciones.slice(indexOfFirstUser, indexOfLastUser);
+console.log(mediciones, "HOLa")
   return (
     <div>
-      <h1>Listado de Mediciones</h1>
-      <label>
-        Seleccionar Fecha:
-        <input type="text" value={selectedDate} onChange={handleDateChange} />
-      </label>
-      <label>
-        Buscar por Nombre o Apellido:
-        <input type="text" value={searchName} onChange={handleNameSearch} />
-      </label>
+      <h1 className="h1Provisorio">Listado de Mediciones</h1>
+      <div className="contenedorListar">
+      <Link href="/mediciones">
+          <button className='regresarUsuario'>Regresar</button>
+      </Link>
+    
+      </div>
+      
+      
       <table className="rwd-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Mes</th>
-            <th>Consumo del Mes</th>
-            <th>Consumo del Mes Anterior</th>
-            <th>Valor Fijo</th>
-            <th>Tarifa por Excedente</th>
-            <th>Total a Pagar</th>
+            <th>Fecha</th>
+            <th>PDF</th>
           </tr>
         </thead>
         <tbody>
@@ -102,7 +86,12 @@ const Listado: React.FC = () => {
             .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
             .map((date: string, index: number) => (
               <tr key={index} onClick={() => showMedicionDetails(date)}>
-                <td colSpan={9}>{date}</td>
+                <td>{date}</td>
+                <td>
+                  <button className="botonPDF" onClick={() => generatePDF(selectedDate, selectedMediciones)}>
+                    Generar PDF
+                  </button>
+                  </td>
               </tr>
             ))}
         </tbody>
@@ -127,13 +116,14 @@ const Listado: React.FC = () => {
                     <th>Mes</th>
                     <th>Consumo del Mes</th>
                     <th>Consumo del Mes Anterior</th>
-                    <th>Valor Fijo</th>
+                    <th>Valor 10.000lts Iniciales</th>
                     <th>Tarifa por Excedente</th>
+                    <th>Consumo:</th>
                     <th>Total a Pagar</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {selectedMediciones.map((medicion: any, index: number) => (
+                  {currentUsers.map((medicion: any, index: number) => (
                     <tr key={index}>
                       <td>{medicion.usuario.id}</td>
                       <td>{medicion.usuario.nombre}</td>
@@ -141,14 +131,32 @@ const Listado: React.FC = () => {
                       <td>{truncateDate(medicion.mesActual)}</td>
                       <td>{medicion.consumoDelMes}</td>
                       <td>{medicion.consumoDelMesAnterior}</td>
-                      <td>{medicion.valorFijo}</td>
-                      <td>{medicion.tarifaExcedente}</td>
-                      <td>{medicion.totalAPagar}</td>
+                      <td>${medicion.valorFijo}</td>
+                      <td>${medicion.tarifaExcedente}</td>
+                      <td>{medicion.consumoDelMes - medicion.consumoDelMesAnterior}</td>
+                      <td>${medicion.totalAPagar}</td>
+                      
                     </tr>
                   ))}
-                </tbody>
+                </tbody> 
+                
               </table>
+              
             </div>
+            <ReactPaginate
+                  previousLabel={""} 
+                  nextLabel={""}      
+                  breakLabel={"..."}
+                  pageCount={Math.ceil(selectedMediciones.length / usersPerPage)}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={handlePageChange}
+                  containerClassName={"pagination"}
+                  className={"pages pagination"}
+                  activeClassName={"active"}
+                  pageClassName={"page-item"}
+                  pageLinkClassName={"page-link"}
+                />
           </div>
         </div>
       )}

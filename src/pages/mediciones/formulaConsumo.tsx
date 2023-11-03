@@ -78,6 +78,7 @@ function UserForm({
   return (
     <td>
       <input
+        className='inputConsumoMes'
         type="number"
         placeholder="Consumo del Mes"
         name="consumoDelMes"
