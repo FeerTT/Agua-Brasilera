@@ -23,7 +23,7 @@ export default async function handler(
         } = medicionData;
         const fechaActual = new Date();
         const fechaActualString =  fechaActual.toISOString();
-        const consumoDelMesNum = parseInt(consumoDelMes);
+        const consumoDelMesNum = consumoDelMes;
         const consumoDelMesAnteriorNum = parseInt(consumoDelMesAnterior);
         const tarifaExcedenteNum = parseInt(tarifaExcedente);
         const totalAPagarNum = parseInt(totalAPagar);

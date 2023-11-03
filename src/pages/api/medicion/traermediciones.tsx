@@ -11,7 +11,7 @@ export default async function handler(
     try {
       const mediciones = await prisma.medicion.findMany({
         include: {
-          usuario: true, // Esto incluirá todos los campos del usuario relacionado
+          usuario: true, 
         },
       });
       res.status(200).send(mediciones);
