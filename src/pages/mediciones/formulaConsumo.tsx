@@ -57,6 +57,7 @@ function UserForm({ user, onResultsCalculated, valorFijoGlobal, tarifaPorExceden
   return (
     <div>
       <input
+        className='inputConsumoMes'
         type="number"
         placeholder="Consumo del Mes"
         name="consumoDelMes"

@@ -166,12 +166,17 @@ a {
 }
 
 .regresarUsuario{
-  background-color: #007bff;
+  background-color: #04AA6D;
+  /* background-color: #5ac4c3; */
+  transition: background-color 0.5s ease;
   color: #fff;
   border: none;
   border-radius: 3px;
   padding: 10px 20px;
   cursor: pointer;
+}
+.regresarUsuario:hover{
+  background-color: #0090ad;
 }
 
 .modifyButton {
@@ -259,36 +264,59 @@ a {
   opacity: 0.8;
 }
 
+/* Estilos para la lista de paginación */
 .pagination {
   display: flex;
+  justify-content: center;
+  align-items: center;
   list-style: none;
   padding: 0;
-  justify-content: center;
+  margin-top: 10px; /* Agregamos un margen de 0 para evitar cualquier espacio no deseado */
 }
 
+/* Estilo para los elementos de página */
 .page-item {
-  margin: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
   display: inline-block;
+  margin: 5px; /* Eliminamos cualquier margen adicional */
 }
 
+/* Estilo para el enlace de página */
 .page-link {
   text-decoration: none;
   padding: 5px 10px;
   background-color: #fff;
   color: #333;
   cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.page-item.active {
-  background-color: #007bff;
-}
-
+/* Estilo para el elemento de página activa */
 .page-item.active .page-link {
-  background-color: #007bff
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+  cursor: default;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Estilo para los botones de "Anterior" y "Siguiente" */
+.pagination .prev-button,
+.pagination .next-button {
+  text-decoration: none;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  margin: 0 5px; /* Espacio entre los botones "Anterior" y "Siguiente" */
+}
+
+/* Estilo para los puntos suspensivos (...) */
+.pagination .break {
+  margin: 0 5px; /* Espacio entre los puntos suspensivos y los números de página */
+  color: #333;
+}
 
 .rwd-table {
   width: 100%;
@@ -480,18 +508,20 @@ a {
   justify-content: center;
   border: 2px solid;
   border-radius: 5px;
-  width: 300px;
-  height: 300px;
+  width: 360px;
+  height: 360px;
   background-color: #f0f0f0; /* Cambia el color de fondo a tu elección */
   margin: 0 auto; /* Agrega este margen para centrar horizontalmente */
-  margin-bottom: 50px;
-  margin-top: 10px;
+  margin-bottom: 60px;
+  padding: 50px;
+  margin-top: 20px;
+  
 }
 
 /* Estilos para el título */
 .users-title {
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
   text-align: center; /* Añade alineación de texto centrado */
 }
 
@@ -506,40 +536,58 @@ a {
 .view-modify-button {
   padding: 10px 20px;
   margin: 10px;
-  background-color: #007bff; /* Cambia el color de fondo a tu elección */
+  width: 225px;
+  background-color: #00aed0;
   color: #fff; /* Cambia el color del texto a blanco */
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform 0.2s;
 }
 
 .view-modify-button:hover {
-  background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse */
+  transform: translateY(-5px); /* Cambia el color de fondo al pasar el mouse */
 }
 
 /* Estilos para el botón de agregar nuevos usuarios */
 .add-button {
+  width: 225px;
   padding: 10px 20px;
   margin: 10px;
-  background-color: #007bff; /* Cambia el color de fondo a tu elección */
+  background-color: #00aed0;
   color: #fff; /* Cambia el color del texto a blanco */
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform 0.2s;
 }
 
 .add-button:hover {
-  background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse */
+  transform: translateY(-5px); /* Cambia el color de fondo al pasar el mouse */
+}
+.h1Provisorio{
+  text-align: center;
+  margin-top: 40px;
+}
+.contenedorListar{
+  display: flex;
+  margin-top: 50px;
+  align-items: center;
+  margin-bottom: 50px;
+}
+.labelInputs{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
 }
 
-
 .divisorInputs {
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  width: 350px;
+  margin-left: 37%;
+  margin-top: 25px;
+  border-radius: 10px;
   padding: 20px;
-  margin: 10px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -615,17 +663,22 @@ a {
 
 
 .botonIrMediciones{
-  background-color: #007bff;
+  background-color: #00aed0;
+  /* background: rgb(102,191,208);
+  background: linear-gradient(90deg, rgba(102,191,208,1) 0%, rgba(113,215,171,1) 100%); */
+  /* background: rgb(14,159,186);
+  background: linear-gradient(90deg, rgba(14,159,186,1) 0%, rgba(113,215,171,1) 100%); */
   padding: 10px 20px;
   cursor: pointer;
   border: solid 2px;
   border-radius: 10px;
   margin-right: 10px;
   font-size: 22px;
+  transition: transform 0.3s;
 }
 
 .botonIrMediciones:hover{
-  background-color: #0056b3;
+  transform: translateY(-5px);
 }
 
 .gestionInicial{
@@ -634,9 +687,10 @@ a {
   margin-top: 200px;
   width: 100%;
   height: 120px;
-
 }
+
 .h1InicialApp{
+  
   display: flex;
   margin-top: 30px;
   font-size: 40px;
@@ -645,7 +699,9 @@ a {
   border-radius: 10px;
   height: 300px;
   width: 800px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  padding-bottom: 40px;
 }
 .contenedorBotonMas {
   display: flex;
@@ -665,9 +721,32 @@ a {
 }
 
 #backgroundImg{
-  background-image: url(../../public/wallpaperflare.com_wallpaper\ \(3\).jpg);
+  background-image: url(../../public/light_background-wallpaper-2048x1152.jpg);
   background-size: cover;
 }
+
+
+
+.inputConsumoMes{
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 250px;
+  font-size: 16px;
+  color: #333;
+}
+
+.inputConsumoMes:focus{
+  outline:none;
+  border: 2px solid #007bff;
+}
+.inputConsumoMes:hover{
+  border: 2px solid #66afe9;
+  cursor: pointer;
+}
+
+
 
 .modal-background-listado {
   position: fixed;
@@ -675,7 +754,7 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Fondo con transparencia para el efecto de difuminado */
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -702,13 +781,17 @@ a {
   font-size: 25px;
   border: 2px solid rgb(179, 42, 42);
   color: red;
-  width: 30px; 
-  height: 30px;
+  width: 65px; 
+  height: 65px;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-color 0.3s, transform 0.2s;
 }
-
+.close-listado:hover{
+  transform: translate(3px, -3px);
+  
+}
 .medition-detail{
   color: red;
 }

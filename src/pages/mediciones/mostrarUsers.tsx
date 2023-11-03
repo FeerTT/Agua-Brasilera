@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import UserForm from "./formulaConsumo";
 import { eliminarTodasLasMediciones } from "@/redux/actions/action";
 import ReactPaginate from "react-paginate";
+import Link from "next/link";
+
 
 const ComponenteDondeMostrarUsuarios = () => {
   const userList = useSelector((state: any) => state.userReducer.userList);
@@ -26,7 +28,7 @@ const ComponenteDondeMostrarUsuarios = () => {
     }>[]
   >([]);
   const [currentPage, setCurrentPage] = useState(0); // Página actual seleccionada
-  const usersPerPage = 15; // Cantidad de usuarios por página
+  const usersPerPage = 5; // Cantidad de usuarios por página
 
   const onDelete = () => {
     dispatch(eliminarTodasLasMediciones() as any);
@@ -68,14 +70,14 @@ const ComponenteDondeMostrarUsuarios = () => {
   
     setErrorValorFijo("");
     setErrorTarifa("");
-    const someUnfilledConsumption = userList.some((user: any) => {
-      return resultados.every((result) => result.usuarioId !== user.id) || !user.ultimaMedicion;
-    });
+    // const someUnfilledConsumption = userList.some((user: any) => {
+    //   return resultados.every((result) => result.usuarioId !== user.id) || !user.ultimaMedicion;
+    // });
   
-    if (someUnfilledConsumption) {
-      alert("Ups! Parece que falta calcular el total a pagar de algunos usuarios.");
-      return;
-    }
+    // if (someUnfilledConsumption) {
+    //   alert("Ups! Parece que falta calcular el total a pagar de algunos usuarios.");
+    //   return;
+    // }
     const generatedArray = userList.map((user: any, index: any) => ({
       usuarioId: user.id,
       consumoDelMes: resultados[index] ? resultados[index].consumoDelMes : 0,
@@ -105,6 +107,7 @@ const ComponenteDondeMostrarUsuarios = () => {
           <strong>VALOR FIJO PARA LOS 10.000 LITROS INICIALES:</strong>
         </p>
         <input
+          className="inputConsumoMes"
           type="text"
           placeholder="Valor Fijo"
           value={valorFijoGlobal}
@@ -123,6 +126,7 @@ const ComponenteDondeMostrarUsuarios = () => {
           <strong>VALOR EXCEDENTE CADA 1000 LITROS:</strong>
         </p>
         <input
+          className="inputConsumoMes"
           type="text"
           placeholder="Tarifa por Excedente"
           value={tarifaPorExcedenteGlobal}
@@ -138,86 +142,87 @@ const ComponenteDondeMostrarUsuarios = () => {
         />
         {errorTarifa && <p style={{ color: "red" }}>{errorTarifa}</p>}
       </div>
-
-
-
-      <form>
-        <table className="rwd-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre y apellido</th>
-              <th>Consumo del Mes</th>
-              <th>Consumo del Mes Anterior</th>
-              <th>Valor Fijo hasta 10.000L</th>
-              <th>Tarifa por Excedente: </th>
-              <th>Excedente:</th>
-
-              <th>Total a Pagar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedUsers.map((user: any) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>
-                  {user.apellido}, {user.nombre}{" "}
-                </td>
-                <td>
-                  <UserForm
-                    user={user}
-                    valorFijoGlobal={valorFijoGlobal}
-                    tarifaPorExcedenteGlobal={tarifaPorExcedenteGlobal}
-                    onResultsCalculated={handleResultsCalculated}
-                  />
-                </td>
-                {user.ultimaMedicion ? (
-                  <>
-                    <td>{user.ultimaMedicion.consumoDelMes}</td>
-                  </>
-                ) : (
-                  <>
-                    <td>0</td>
-                  </>
-                )}
-                <td>{valorFijoGlobal}</td>
-                <td>{tarifaPorExcedenteGlobal}</td>
-
-                <td>
-                  {resultados
-                    .filter((resultado: any) => resultado.usuarioId === user.id)
-                    .map((resultado: any, index: any, array: any) => {
-                      if (index === array.length - 1) {
-                        return (
-                          <div key={index}>
-                            <td>{resultado.excedenteEnLitros}</td>
-                          </div>
-                        );
-                      } else {
-                        return null;
-                      }
-                    })}
-                </td>
-                <td>
-                  {resultados
-                    .filter((resultado: any) => resultado.usuarioId === user.id)
-                    .map((resultado: any, index: any, array: any) => {
-                      if (index === array.length - 1) {
-                        return (
-                          <div key={index}>
-                            <td>{resultado.totalAPagar}</td>
-                          </div>
-                        );
-                      } else {
-                        return null;
-                      }
-                    })}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </form>
+      <Link href="/mediciones">
+          <button className='regresarUsuario'>Regresar</button>
+      </Link>
+       
+      {/* {valorFijoGlobal !== 0 && tarifaPorExcedenteGlobal !== 0 && ( */}
+  <form>
+    <table className="rwd-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre y apellido</th>
+          <th>Consumo del Mes</th>
+          <th>Consumo del Mes Anterior</th>
+          <th>Valor Fijo hasta 10.000L</th>
+          <th>Tarifa por Excedente: </th>
+          <th>Consumido:</th>
+          <th>Total a Pagar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {paginatedUsers.map((user: any) => (
+          <tr key={user.id}>
+            <td>{user.id}</td>
+            <td>
+              {user.apellido}, {user.nombre}{" "}
+            </td>
+            <td>
+              <UserForm
+                user={user}
+                valorFijoGlobal={valorFijoGlobal}
+                tarifaPorExcedenteGlobal={tarifaPorExcedenteGlobal}
+                onResultsCalculated={handleResultsCalculated}
+              />
+            </td>
+            {user.ultimaMedicion ? (
+              <>
+                <td>{user.ultimaMedicion.consumoDelMes}</td>
+              </>
+            ) : (
+              <>
+                <td>0</td>
+              </>
+            )}
+            <td>{valorFijoGlobal}</td>
+            <td>{tarifaPorExcedenteGlobal}</td>
+            <td>
+              {resultados
+                .filter((resultado: any) => resultado.usuarioId === user.id)
+                .map((resultado: any, index: any, array: any) => {
+                  if (index === array.length - 1) {
+                    return (
+                      <div key={index}>
+                        <td>{resultado.excedenteEnLitros}</td>
+                      </div>
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
+            </td>
+            <td>
+              {resultados
+                .filter((resultado: any) => resultado.usuarioId === user.id)
+                .map((resultado: any, index: any, array: any) => {
+                  if (index === array.length - 1) {
+                    return (
+                      <div key={index}>
+                        <td>{resultado.totalAPagar}</td>
+                      </div>
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </form>
+      
       <ReactPaginate
         previousLabel={""}
         nextLabel={""}

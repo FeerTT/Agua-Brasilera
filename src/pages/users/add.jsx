@@ -28,7 +28,17 @@ const AddUserForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+    const nameRegex = /^[A-Za-z ]{1,25}$/;
+    const phoneRegex = /^[0-9+\- ]{0,25}$/;
+    if (!formData.nombre.match(nameRegex) || !formData.apellido.match(nameRegex)) {
+      // Si el nombre o apellido no cumple con las validaciones, muestra un mensaje de error
+      alert('Nombre y apellido deben contener solo letras y espacios, y tener un máximo de 20 caracteres.');
+      return;
+    }
+    if (!formData.telefono.match(phoneRegex)) {
+      alert('El teléfono debe contener solo números, + o -, y tener un máximo de 25 caracteres.');
+      return;
+    }
     setIsModalOpen(true);
     
   };
