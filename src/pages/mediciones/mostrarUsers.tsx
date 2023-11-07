@@ -8,10 +8,9 @@ import {
 } from "@/redux/actions/action";
 import { useDispatch } from "react-redux";
 import UserForm from "./formulaConsumo";
-import { eliminarTodasLasMediciones } from "@/redux/actions/action";
 import ReactPaginate from "react-paginate";
 import Link from "next/link";
-
+import Modal from "@/components/modalConfirmacion";
 
 const ComponenteDondeMostrarUsuarios = () => {
   const userList = useSelector((state: any) => state.userReducer.userList);
@@ -30,12 +29,12 @@ const ComponenteDondeMostrarUsuarios = () => {
       valorFijo: number;
     }>[]
   >([]);
-  const [currentPage, setCurrentPage] = useState(0); // Página actual seleccionada
-  const usersPerPage = 5; // Cantidad de usuarios por página
-
-  const onDelete = () => {
-    dispatch(eliminarTodasLasMediciones() as any);
-  };
+  const [modalAbierto, setModalAbierto] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0); 
+  const usersPerPage = 5;
+    const handleCloseModal = () => {
+      setModalAbierto(false)
+    }
 
   const handlePageClick = (data: any) => {
     const selectedPage = data.selected;
@@ -112,6 +111,7 @@ const ComponenteDondeMostrarUsuarios = () => {
     ) {
       setErrorValorFijo("");
       setErrorTarifa("Este campo es obligatorio y no puede quedar vacio.");
+      
       return;
     }
 
@@ -134,15 +134,18 @@ const ComponenteDondeMostrarUsuarios = () => {
     }
     console.log("el array que se crea", userFormDataList);
     dispatch(crearMedicion(userFormDataList as any) as any);
+    setModalAbierto(true)
     setUserFormDataList([]);
+    
 
-
-    window.location.reload();
+  
+    // window.location.reload();
   };
   console.log(userFormDataList, "CORROBORACIÓN");
 
   return (
     <div>
+      
       <div className="divisorInputs">
         <h1>Cargar Medición</h1>
         <p>
@@ -186,11 +189,14 @@ const ComponenteDondeMostrarUsuarios = () => {
         />
         {errorTarifa && <p style={{ color: "red" }}>{errorTarifa}</p>}
       </div>
-
+      <Link href="/">
+      <img className='regresarImg1' src="/devolver.png" alt="Agregar Usuario" title="Regresar" />
+          
+          </Link>
       <form>
         <table className="rwd-table">
           <thead>
-            <tr>
+            <tr className="trTable">
               <th>ID</th>
               <th>Nombre y apellido</th>
               <th>Consumo del Mes</th>
@@ -204,7 +210,7 @@ const ComponenteDondeMostrarUsuarios = () => {
           </thead>
           <tbody>
             {paginatedUsers.map((user: any) => (
-              <tr key={user.id}>
+              <tr className="hover-effect" key={user.id}>
                 <td>{user.id}</td>
                 <td>
                   {user.apellido}, {user.nombre}{" "}
@@ -272,12 +278,19 @@ const ComponenteDondeMostrarUsuarios = () => {
         pageClassName={"page-item"}
         pageLinkClassName={"page-link"}
       />
+      <div>
       <div className="divButtonFinal">
-        <button className="buttonCrear" onClick={(e) => handleGenerateArray(e)}>
+        <button className="buttonCrear" onClick={handleGenerateArray}>
           Generar Mediciones
         </button>
-        <button onClick={onDelete}>eliminar mediciones</button>
+        
       </div>
+
+      {modalAbierto && (
+         <Modal isOpen={modalAbierto}  />
+      )}
+    </div>
+    
     </div>
   );
 };

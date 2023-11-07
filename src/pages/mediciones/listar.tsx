@@ -68,7 +68,7 @@ console.log(mediciones, "HOLa")
       <h1 className="h1Provisorio">Listado de Mediciones</h1>
       <div className="contenedorListar">
       <Link href="/mediciones">
-          <button className='regresarUsuario'>Regresar</button>
+        <img className='regresarImg' src="/devolver.png" alt="Agregar Usuario" title="Regresar"  />
       </Link>
     
       </div>
@@ -76,7 +76,7 @@ console.log(mediciones, "HOLa")
       
       <table className="rwd-table">
         <thead>
-          <tr>
+          <tr className="trTable">
             <th>Fecha</th>
             <th>PDF</th>
           </tr>
@@ -85,11 +85,11 @@ console.log(mediciones, "HOLa")
           {Object.keys(groupedMediciones)
             .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
             .map((date: string, index: number) => (
-              <tr key={index} onClick={() => showMedicionDetails(date)}>
+              <tr className="trTable" key={index} onClick={() => showMedicionDetails(date)}>
                 <td>{date}</td>
                 <td>
-                  <button className="botonPDF" onClick={() => generatePDF(selectedDate, selectedMediciones)}>
-                    Generar PDF
+                  <button onClick={() => generatePDF(selectedDate, selectedMediciones)}>
+                    <div className="imagenPdf" title="Descargar PDF"></div>
                   </button>
                   </td>
               </tr>
@@ -109,7 +109,7 @@ console.log(mediciones, "HOLa")
             <div className="table-container">
               <table className="rwd-table">
                 <thead>
-                  <tr>
+                  <tr className="trTable">
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
@@ -124,7 +124,7 @@ console.log(mediciones, "HOLa")
                 </thead>
                 <tbody>
                   {currentUsers.map((medicion: any, index: number) => (
-                    <tr key={index}>
+                    <tr className="hover-effect" key={index}>
                       <td>{medicion.usuario.id}</td>
                       <td>{medicion.usuario.nombre}</td>
                       <td>{medicion.usuario.apellido}</td>

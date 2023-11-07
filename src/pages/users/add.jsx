@@ -102,7 +102,7 @@ const AddUserForm = () => {
   </div>
   <div className='divRegresarUsuario'>
         <Link href="/users">
-        <button className='regresarUsuario'>Regresar</button>
+          <img className='regresarImg' src="/devolver.png" alt="Agregar Usuario" title="Regresar"  />
         </Link>
       </div>
   </main>

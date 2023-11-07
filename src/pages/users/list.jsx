@@ -92,7 +92,7 @@ const Listado = () => {
       
     <div className='contenedorBotonMas'>
       <Link href="/users">
-        <button className='regresarUsuario'>Regresar</button>
+      <img className='regresarImg' src="/devolver.png" alt="Agregar Usuario" title="Regresar"  />
       </Link>
       <div className='sortContainer'>
         <label className='sort' htmlFor="sort">Ordenar por:</label>
@@ -103,7 +103,7 @@ const Listado = () => {
           <option value="nombre-desc">Nombre Z-A</option>
         </select>
       </div>
-      <Link className='botonMas' href="/users/add"></Link>
+      <Link className='botonMas' href="/users/add" title="Crear nuevo usuario"></Link>
     </div>
       
       <div className='modelo-conteiner'>
@@ -112,7 +112,7 @@ const Listado = () => {
       
       <table className="rwd-table">
         <thead>
-          <tr>
+          <tr className='trTable'>
             <th>ID</th>
             <th>Apellido</th>
             <th>Nombre</th>
@@ -121,16 +121,18 @@ const Listado = () => {
         </thead>
         <tbody>
             {currentUsers.map((user) => (
-            <tr key={user.id}>
+            <tr className='hover-effect' key={user.id}>
               <td>{user.id}</td>
               <td>{user.apellido}</td>
               <td>{user.nombre}</td>
               <td>{user.telefono}</td>
               <td>
-                <button className='modifyButton' onClick={() => handleModificarUsuario(user)}>Modificar</button>
+              <img className='dibujito' src="/editar.png" title="Editar Usuario" onClick={() => handleModificarUsuario(user)}alt="Agregar Usuario" />
+                {/* <button className='modifyButton' onClick={() => handleModificarUsuario(user)}>Modificar</button> */}
               </td>
               <td>
-                <button className='modifyButton' onClick={()=> openConfirmationModal(user.id)}>Eliminar</button>
+              <img className='dibujito' src="/eliminar.png" title="Eliminar usuario" onClick={()=> openConfirmationModal(user.id)} alt="Agregar Usuario" />
+                {/* <button className='modifyButton' onClick={()=> openConfirmationModal(user.id)}>Eliminar</button> */}
               </td>
             </tr>
           ))}

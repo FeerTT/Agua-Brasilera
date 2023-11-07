@@ -106,6 +106,42 @@ a {
   }
 }
 
+.regresarImg{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  transition: transform 0.3s ease-in-out;
+  transform: scale(1) translateZ(0);
+  overflow: hidden;
+  /* transition: transform 0.2s ease-in-out;
+  transform: scale(1); */
+}
+.regresarImg:hover{
+  transform: scale(1.05);
+  overflow: hidden;
+  transform: rotate(45deg);
+  /* transform: scale(1.10);*/
+} 
+.regresarImg1{
+  width: 60px;
+  position: relative;
+  left: 40px;
+  bottom: 115px;
+  height: 60px;
+  border-radius: 50%;
+  transition: transform 0.3s ease-in-out;
+  transform: scale(1) translateZ(0);
+  overflow: hidden;
+  /* transition: transform 0.2s ease-in-out;
+  transform: scale(1); */
+}
+.regresarImg1:hover{
+  transform: scale(1.05);
+  overflow: hidden;
+  transform: rotate(45deg);
+  /* transform: scale(1.10);*/
+} 
+
 
 .modalContainer {
   background-color: #fff;
@@ -166,17 +202,22 @@ a {
 }
 
 .regresarUsuario{
-  background-color: #04AA6D;
-  /* background-color: #5ac4c3; */
-  transition: background-color 0.5s ease;
+  /* background: linear-gradient(90deg, #87CEEB, #3498db); */
+  background-color: #007bff;
+  /* background-color: #04AA6D; */
+  transition: transform 0.3s;
   color: #fff;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
   padding: 10px 20px;
+  height: 50px;
+  width: 100px;
   cursor: pointer;
+
 }
 .regresarUsuario:hover{
-  background-color: #0090ad;
+
+  transform: translateY(-4px);
 }
 
 .modifyButton {
@@ -352,25 +393,26 @@ a {
 .form-container {
   max-width: 400px;
   margin: 0 auto;
+  
   padding: 20px;
   background-color: #ccc;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-top: 20px;
 }
 
 .add-user-form {
   max-width: 400px;
   margin: 0 auto;
+  margin-bottom: 70px;
   padding: 20px;
-  background-color:  #f2f2f2;
+  background-color: #e0e0e0;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   margin-top: 30px;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .form-label {
@@ -384,28 +426,46 @@ a {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.1);
 }
-
+.dibujito{
+border-radius: 50%;
+width: 50px;
+border:none;
+transition: transform 0.3s ease-in-out;
+  transform: scale(1); 
+height: 50px;
+}
+.dibujito:hover{
+  transform: scale(1.2);
+  border: none;
+}
 .form-button {
-  display: block; /* Hace que el botón sea un elemento de bloque */
-  margin: 0 auto; /* Centra horizontalmente el botón dentro del contenedor */
-  padding: 10px 20px; /* Ajusta el espaciado del botón según tus preferencias */
-  background-color: #007bff;
-  color: #fff;
+  display: block;
+  margin: 0 auto; 
+  padding: 10px 20px; 
+  background: linear-gradient(90deg, #0d9dba, #87ceeb);
+  /* background: linear-gradient(90deg, #556B2F, #8FBC8F); */
+  color: black;
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  
 }
-
-.form-button:hover {
-  background-color: #0056b3;
+.form-button:focus{
+  border: solid 1px black;
 }
-
+.form-button:hover{
+  background: linear-gradient(90deg, #0b7b97, #6ea9d1);
+  /* background: linear-gradient(90deg, #46621e, #7ca878); */
+}
 .form-container h1 {
-  font-size: 24px; /* Tamaño de fuente del título */
+  font-size: 26px; /* Tamaño de fuente del título */
   margin-bottom: 20px; /* Espacio inferior para separarlo de los campos del formulario */
   color: #333; /* Color del texto del título */
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -471,7 +531,23 @@ a {
   display: flex;
   justify-content: center;
 }
+.button-cerrarModal{
+  /* margin: 0 10px; */
+  margin-top: 60px;
+  padding: 10px 20px;
+  margin-left: 10px;
+  background-color: #4caf50; /* Verde */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
 
+.button-cerrarModal:hover{
+  transform: translateY(-3px);
+  
+}
 /* Estilos para los botones */
 .button-confirmar-crear {
   margin: 0 10px;
@@ -502,26 +578,31 @@ a {
 }
 
 .users-container {
+  background-color: rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 2px solid;
-  border-radius: 5px;
-  width: 360px;
-  height: 360px;
-  background-color: #f0f0f0; /* Cambia el color de fondo a tu elección */
+  
+  border-radius: 20px;
+  width: 400px;
+  height: 500px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   margin: 0 auto; /* Agrega este margen para centrar horizontalmente */
   margin-bottom: 60px;
   padding: 50px;
   margin-top: 20px;
-  
+  transition: transform 0.2s;
+}
+.users-container:hover{
+  cursor: pointer;
+  transform: translateY(-2px);
 }
 
 /* Estilos para el título */
 .users-title {
   font-size: 24px;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
   text-align: center; /* Añade alineación de texto centrado */
 }
 
@@ -530,20 +611,32 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
+  
 }
 
 /* Estilos para los botones de ver y modificar usuarios */
 .view-modify-button {
-  padding: 10px 20px;
-  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-left: 33px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-right: 18px;
+  margin: 15px;
   width: 225px;
-  background-color: #00aed0;
-  color: #fff; /* Cambia el color del texto a blanco */
+  background-color: #0d9dba;
+  /* background: linear-gradient(90deg, #556B2F, #8FBC8F); */
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: transform 0.2s;
+  opacity: 85%;
+  font-size: 16px;
+  color: black;
 }
+
 
 .view-modify-button:hover {
   transform: translateY(-5px); /* Cambia el color de fondo al pasar el mouse */
@@ -551,11 +644,23 @@ a {
 
 /* Estilos para el botón de agregar nuevos usuarios */
 .add-button {
+  
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  opacity: 85%;
   width: 225px;
-  padding: 10px 20px;
+  /* padding: 10px 30px 10px 30px; */
+  padding-left: 33px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-right: 18px;
   margin: 10px;
-  background-color: #00aed0;
-  color: #fff; /* Cambia el color del texto a blanco */
+  background-color: #0d9dba;
+  color: black;
+  /* background: linear-gradient(90deg, #556B2F, #8FBC8F); */
+  
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -659,22 +764,24 @@ a {
   align-items: center;
   justify-content: center;
   margin-top: 25px;
+  
 }
 
 
 .botonIrMediciones{
-  background-color: #00aed0;
-  /* background: rgb(102,191,208);
-  background: linear-gradient(90deg, rgba(102,191,208,1) 0%, rgba(113,215,171,1) 100%); */
-  /* background: rgb(14,159,186);
-  background: linear-gradient(90deg, rgba(14,159,186,1) 0%, rgba(113,215,171,1) 100%); */
+  background-color: #0d9dba;
+  /* background: linear-gradient(350deg, #f3f3e7, #ece0d1, #d2b48c); */
+  /* background-color: rgba(0, 0, 0, 0.15); */
   padding: 10px 20px;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  border: solid 2px;
+  border: none;
   border-radius: 10px;
   margin-right: 10px;
   font-size: 22px;
-  transition: transform 0.3s;
+  transition: 0.3s;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .botonIrMediciones:hover{
@@ -682,50 +789,108 @@ a {
 }
 
 .gestionInicial{
-  justify-content: space-around;
+  justify-content: space-evenly;
   display: flex;
-  margin-top: 200px;
+  align-items: center;
+  margin-top: 100px;
   width: 100%;
   height: 120px;
 }
 
 .h1InicialApp{
-  
+  background-color: rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+  /* background: linear-gradient(3200deg, #f3f3e7, #aee9ff); */
+    /* background: linear-gradient(90deg, #f3f3e7, #87ceeb); */
+  cursor: pointer;
   display: flex;
   margin-top: 30px;
   font-size: 40px;
   justify-content: center;
-  margin-left: 25%;
+  margin-left: 27%;
   border-radius: 10px;
-  height: 300px;
+  height: 600px;
   width: 800px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   align-items: center;
   padding-bottom: 40px;
+  opacity: 0.8;
+  transition: transform 0.2s;
+}
+
+.h1InicialApp:hover{
+  cursor: pointer;
+  transform: translateY(-2px);
 }
 .contenedorBotonMas {
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
-
+.imagenPdf{
+  background-image: url(../../public/archivo-pdf.png);
+  width: 39px;
+  height: 39px;
+  border-radius: 25%;
+  cursor: pointer;
+  
+}
+.imagenPdf:hover{
+  transform: scale(1.05);
+}
 .botonMas {
   background-image: url(../../public/mas.png);
-  width: 64px; 
-  height: 64px; 
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
   background-repeat: no-repeat;
+  transition: transform 0.3s ease-in-out;
+  transform: scale(1); 
+
 }
+
+.botonMas:hover{
+  transform: scale(1.20);
+  border: none;
+}
+
 .divRegresar{
   display: flex;
   justify-content: center;
 }
-
+.dentrodelBoton{
+  width: 30px;
+  position: relative;
+  left: 6px;
+  height: 30px;
+  border-radius: 50%;
+  background-image: url(../../public/responsible-consumption.png);
+}
+.dentrodelBotonUser{
+  width: 30px;
+  position: relative;
+  left: 6px;
+  height: 30px;
+  border-radius: 50%;
+  background-image: url(../../public/equipo-de-usuarios\ \(1\).png);
+}
 #backgroundImg{
-  background-image: url(../../public/light_background-wallpaper-2048x1152.jpg);
+  background-image: url(../../public/mert-atakan-chc-oAL0gBU-unsplash.jpg);
   background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+.trTable{
+  cursor: pointer;
+}
+.hover-effect td {
+
+  cursor: pointer;
 }
 
-
+.hover-effect:hover td {
+  transform: translateY(-2px);
+}
 
 .inputConsumoMes{
   background-color: #f2f2f2;
@@ -804,9 +969,85 @@ a {
 .app-container {
   width: 100%;
   height: 800px;
-  padding: 20px;
+  padding: 30px;
   text-align: center;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  margin: 20px;
+  margin-top: 30px;
+}
+
+.modalConfirmacion {
+
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Fondo semitransparente */
+}
+.modalTitulo{
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-size: 28px;
+}
+.modalParrafo{
+  margin-top: 5px;
+  font-size: 18px;
+}
+.modal-confirmacion-content {
+  border-radius: 8px;
+  background-color: #fff; /* Fondo del modal */
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Ancho del modal */
+  max-width: 400px; /* Ancho máximo del modal */
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+
+}
+
+
+.close-button:hover {
+  background-color: #ddd; 
+}
+
+.imagenAddUser{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+  left: 5px;
+  background-repeat: no-repeat;
+}
+.button-content {
+  
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+  /* position: relative;
+  left: 5px; */
+}
+.imagenAddUser2{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+  left: 10px;
 }

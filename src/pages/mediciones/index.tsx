@@ -10,18 +10,21 @@ const UsersPage = () => {
         <Link href="/mediciones/listar">
           <button className="view-modify-button">
             VER MEDICIONES
+            <img className='imagenAddUser2' src="/analisis.png" alt="Agregar Usuario" />
           </button>
         </Link>
         <Link href="/mediciones/mostrarUsers">
           <button className="add-button">
             AGREGAR NUEVA MEDICION
+            <img className='imagenAddUser' src="/crear.png" alt="Agregar Usuario" />
           </button>
         </Link>
       </div>
     </div>
     <div className='divRegresar'>
       <Link href="/">
-          <button className='regresarUsuario'>Regresar</button>
+      <img className='regresarImg' src="/devolver.png" alt="Agregar Usuario" title="Regresar" />
+          
           </Link>
     </div>
           

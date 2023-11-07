@@ -24,15 +24,26 @@ const router = useRouter();
   
   return (
     <div className='app-container'>
-      <h1 className='h1InicialApp'>App para la gestión de usuarios y consumos de agua potable Aldea Brasilera </h1>
-    <div className='gestionInicial'>
-    <button onClick={onClickMediciones} className='botonIrMediciones'>
-        PANEL MEDICIONES
-      </button>
+      
+      <h1 className='h1InicialApp'>
+      
+      App para la gestión de usuarios y consumos de agua potable Aldea Brasilera
+      
+  <div className='gestionInicial'>
+    
       <button onClick={onClickUsuarios} className='botonIrMediciones'>
         PANEL USUARIOS
+       <div className='dentrodelBotonUser'></div>
+      </button>
+      <button onClick={onClickMediciones} className='botonIrMediciones'>
+        PANEL MEDICIONES
+        <div className='dentrodelBoton'></div>
+        
       </button>
     </div>
+    
+        </h1>
+    
     </div>
   )
 }
