@@ -27,7 +27,7 @@ const router = useRouter();
       
       <h1 className='h1InicialApp'>
       
-      App para la gestión de usuarios y consumos de agua potable Aldea Brasilera
+      <strong>App para la gestión de usuarios y consumos de agua potable Aldea Brasilera</strong>
       
   <div className='gestionInicial'>
     

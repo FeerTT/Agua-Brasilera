@@ -76,7 +76,7 @@ function UserForm({
   };
 
   return (
-    <td>
+   
       <input
         className='inputConsumoMes'
         type="number"
@@ -86,7 +86,7 @@ function UserForm({
         onChange={handleInputChange}
         onBlur={handleCalculationClick}
       />
-    </td>
+    
   );
 }
 

@@ -1,9 +1,9 @@
-$breakpoint-alpha: 480px; // adjust to your needs
+$breakpoint-alpha: 480px; 
 
 .rwd-table {
   margin: 1em 0;
-  min-width: 100%; // adjust to your needs
-
+   min-width: 100%; 
+  
   tr {
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
@@ -15,7 +15,7 @@ $breakpoint-alpha: 480px; // adjust to your needs
 
   td {
     display: block;
-
+    
     &:first-child {
       padding-top: 0.5em;
     }
@@ -40,8 +40,7 @@ $breakpoint-alpha: 480px; // adjust to your needs
 
   th,
   td {
-    text-align: left;
-
+     text-align: center;
     @media (min-width: $breakpoint-alpha) {
       display: table-cell;
       padding: 0.25em 0.5em;
@@ -77,10 +76,11 @@ h1 {
 }
 
 .rwd-table {
-  background: #34495e;
+  background: #204051;
   color: #fff;
   border-radius: 0.4em;
   overflow: hidden;
+  
   tr {
     border-color: lighten(#34495e, 10%);
   }
@@ -93,8 +93,6 @@ h1 {
   }
   th,
   td:before {
-    color: #dd5;
+    color: #fb9833;
   }
 }
-
-

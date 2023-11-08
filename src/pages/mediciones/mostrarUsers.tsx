@@ -143,7 +143,7 @@ const ComponenteDondeMostrarUsuarios = () => {
   console.log(userFormDataList, "CORROBORACIÓN");
 
   return (
-    <div>
+    <div className="controladorMostrarUserApp">
       
       <div className="divisorInputs">
         <h1>Cargar Medición</h1>
@@ -211,7 +211,7 @@ const ComponenteDondeMostrarUsuarios = () => {
             {paginatedUsers.map((user: any) => (
               <tr className="hover-effect" key={user.id}>
                 <td>{user.id}</td>
-                <td>
+                <td className="text-align-left">
                   {user.apellido}, {user.nombre}{" "}
                 </td>
                 <td>

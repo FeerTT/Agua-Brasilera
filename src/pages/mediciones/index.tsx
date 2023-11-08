@@ -10,13 +10,13 @@ const UsersPage = () => {
         <Link href="/mediciones/listar">
           <button className="view-modify-button">
             VER MEDICIONES
-            <img className='imagenAddUser2' src="/analisis.png" alt="Agregar Usuario" />
+            <img className='imagenAddUser2' src="/eficiencia.png" alt="Agregar Usuario" />
           </button>
         </Link>
         <Link href="/mediciones/mostrarUsers">
           <button className="add-button">
             AGREGAR NUEVA MEDICION
-            <img className='imagenAddUser' src="/crear.png" alt="Agregar Usuario" />
+            <img className='imagenAddUser' src="/agregar-archivo.png" alt="Agregar Usuario" />
           </button>
         </Link>
       </div>
