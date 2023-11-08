@@ -4,7 +4,6 @@ import Listado from "../users/list";
 import {
   crearMedicion,
   getUsers,
-  updateUserList,
 } from "@/redux/actions/action";
 import { useDispatch } from "react-redux";
 import UserForm from "./formulaConsumo";
@@ -189,7 +188,7 @@ const ComponenteDondeMostrarUsuarios = () => {
         />
         {errorTarifa && <p style={{ color: "red" }}>{errorTarifa}</p>}
       </div>
-      <Link href="/">
+      <Link href="/mediciones">
       <img className='regresarImg1' src="/devolver.png" alt="Agregar Usuario" title="Regresar" />
           
           </Link>
