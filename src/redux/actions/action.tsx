@@ -11,7 +11,7 @@ export const GET_MEDICIONES = createAction<Medicion[]>("GET_MEDICIONES");
 export const CREAR_MEDICION = createAction<Medicion[]>("CREAR_MEDICION");
 export const getMedicionMesAnterior = createAction("GET_MEDICION_MES_ANTERIOR");
 export const ELIMINAR_MEDICION = createAction<Medicion[]>("ELIMINAR_MEDICIONES")
-export const UPDATE_USER_LIST = createAction<[]>("UPDATE_USER_LIST")
+
 
 export const eliminarTodasLasMediciones = () => {
   return async (dispatch: Dispatch) => {
@@ -118,9 +118,18 @@ export const crearMedicion = (form:[{}]) => {
   }
 }
 
-export const updateUserList = (updatedList: any) => {
-  return {
-    type: 'UPDATE_USER_LIST',
-    payload: updatedList,
-  };
-};
+export const updateTotal = (medicionid: number, totalAPagar: number) =>{
+  return async (dispatch: Dispatch) =>{
+    try{
+      const response = await axios.put<[]>("http://localhost:3000/api/medicion/modificarTotal", {
+        medicionId: medicionid,
+        totalAPagar,
+      });
+      dispatch(getMediciones() as any);
+      return response.data;
+    }catch(error){
+      console.error('Error al actualizar el total a pagar:', error);
+      throw error;
+    }
+  }
+}
