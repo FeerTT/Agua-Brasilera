@@ -119,14 +119,17 @@ a {
 .regresarImg:hover{
   transform: scale(1.05);
   overflow: hidden;
-  transform: rotate(45deg);
+  transform: rotate(-120deg);
   /* transform: scale(1.10);*/
 } 
 .regresarImg1{
   width: 60px;
-  position: relative;
-  left: 40px;
-  bottom: 115px;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  
+  
+  /* bottom: 60px; */
   height: 60px;
   border-radius: 50%;
   transition: transform 0.3s ease-in-out;
@@ -431,7 +434,7 @@ a {
 .dibujito{
 border-radius: 50%;
 width: 50px;
-border:none;
+border:solid 1px;
 transition: transform 0.3s ease-in-out;
   transform: scale(1); 
 height: 50px;
@@ -578,7 +581,7 @@ height: 50px;
 }
 
 .users-container {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -591,7 +594,7 @@ height: 50px;
   margin: 0 auto; /* Agrega este margen para centrar horizontalmente */
   margin-bottom: 60px;
   padding: 50px;
-  margin-top: 20px;
+  margin-top: 100px;
   transition: transform 0.2s;
 }
 .users-container:hover{
@@ -626,26 +629,28 @@ height: 50px;
   padding-right: 18px;
   margin: 15px;
   width: 225px;
-  background-color: #0d9dba;
+  /* background-color: #0d9dba; */
+  background-color: blanchedalmond;
   /* background: linear-gradient(90deg, #556B2F, #8FBC8F); */
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   transition: transform 0.2s;
   opacity: 85%;
-  font-size: 16px;
+  font-size: 20px;
   color: black;
 }
 
 
 .view-modify-button:hover {
+  border: solid 2px rgb(0, 195, 255);
   transform: translateY(-5px); /* Cambia el color de fondo al pasar el mouse */
 }
 
 /* Estilos para el botón de agregar nuevos usuarios */
 .add-button {
   
-  font-size: 16px;
+  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -657,17 +662,18 @@ height: 50px;
   padding-top: 10px;
   padding-right: 18px;
   margin: 10px;
-  background-color: #0d9dba;
+  background-color: blanchedalmond;
   color: black;
   /* background: linear-gradient(90deg, #556B2F, #8FBC8F); */
   
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   transition: transform 0.2s;
 }
 
 .add-button:hover {
+  border: solid 2px rgb(0, 195, 255);
   transform: translateY(-5px); /* Cambia el color de fondo al pasar el mouse */
 }
 .h1Provisorio{
@@ -676,7 +682,7 @@ height: 50px;
 }
 .contenedorListar{
   display: flex;
-  margin-top: 50px;
+  margin-top: 60px;
   align-items: center;
   margin-bottom: 50px;
 }
@@ -685,18 +691,25 @@ height: 50px;
   flex-direction: column;
   flex-wrap: nowrap;
 }
-
+.controladorMostrarUserApp{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  flex-direction: column;
+}
 .divisorInputs {
+  background-color: #e7dfd5;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   width: 350px;
-  margin-left: 37%;
+  /* margin-left: 37%; */
   margin-top: 25px;
   border-radius: 10px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 50px;
+  text-align: center;
 }
 
 .divisorInputs h1 {
@@ -708,6 +721,7 @@ height: 50px;
   font-size: 16px;
   margin: 10px 0;
   color: black;
+
 }
 
 .divisorInputs input[type="number"] {
@@ -740,7 +754,7 @@ height: 50px;
 }
 
 .buttonCrear {
-  background-color:#34a1eb;
+  background-color:#3b6978;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -757,7 +771,7 @@ height: 50px;
 }
 
 .buttonCrear:hover {
-  background-color: blue; /* Cambio de color al pasar el ratón */
+  background-color: #204051; /* Cambio de color al pasar el ratón */
 }
 .divButtonFinal{
   display: flex;
@@ -769,7 +783,7 @@ height: 50px;
 
 
 .botonIrMediciones{
-  background-color: #0d9dba;
+  background-color: blanchedalmond;
   /* background: linear-gradient(350deg, #f3f3e7, #ece0d1, #d2b48c); */
   /* background-color: rgba(0, 0, 0, 0.15); */
   padding: 10px 20px;
@@ -780,12 +794,13 @@ height: 50px;
   border-radius: 10px;
   margin-right: 10px;
   font-size: 22px;
-  transition: 0.3s;
+  transition: 0.2s;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .botonIrMediciones:hover{
   transform: translateY(-5px);
+  border: solid 2px rgb(0, 195, 255);
 }
 
 .gestionInicial{
@@ -798,7 +813,7 @@ height: 50px;
 }
 
 .h1InicialApp{
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.25);
   flex-wrap: wrap;
   /* background: linear-gradient(3200deg, #f3f3e7, #aee9ff); */
     /* background: linear-gradient(90deg, #f3f3e7, #87ceeb); */
@@ -814,10 +829,15 @@ height: 50px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   align-items: center;
   padding-bottom: 40px;
-  opacity: 0.8;
+  /* opacity: 0.8; */
   transition: transform 0.2s;
 }
-
+.botonGeneraPdf{
+  width: 39px;
+  height: 39px;
+  border-radius: 50%;
+  border: none;
+}
 .h1InicialApp:hover{
   cursor: pointer;
   transform: translateY(-2px);
@@ -828,15 +848,15 @@ height: 50px;
   justify-content: space-around;
 }
 .imagenPdf{
-  background-image: url(../../public/archivo-pdf.png);
+  background-image: url(../../public/descargar.png);
   width: 39px;
   height: 39px;
-  border-radius: 25%;
+  border-radius: 50%;
   cursor: pointer;
-  
 }
 .imagenPdf:hover{
   transform: scale(1.05);
+  border: none;
 }
 .botonMas {
   background-image: url(../../public/mas.png);
@@ -875,7 +895,7 @@ height: 50px;
   background-image: url(../../public/equipo-de-usuarios\ \(1\).png);
 }
 #backgroundImg{
-  background-image: url(../../public/mert-atakan-chc-oAL0gBU-unsplash.jpg);
+  background-image: url(../../public/agua20121.png);
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
@@ -1022,14 +1042,16 @@ height: 50px;
 
 }
 
-
+.text-align-left{
+  text-align: left !important;
+}
 .close-button:hover {
   background-color: #ddd; 
 }
 
 .imagenAddUser{
-  width: 30px;
-  height: 30px;
+  width: 37px;
+  height: 37px;
   border-radius: 50%;
   position: relative;
   left: 5px;
@@ -1045,9 +1067,9 @@ height: 50px;
   left: 5px; */
 }
 .imagenAddUser2{
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   position: relative;
-  left: 10px;
+  left: 2px;
 }

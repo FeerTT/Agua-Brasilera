@@ -11,14 +11,14 @@ const UsersPage = () => {
         <Link href="/users/list">
           <button className="view-modify-button">
             VER Y MODIFICAR USUARIOS
-            <img className='imagenAddUser' src="/solicitud.png" alt="Agregar Usuario" />
+            <img className='imagenAddUser' src="/formulario.png" alt="Agregar Usuario" />
           </button>
         </Link>
         <Link href="/users/add">
           <button className="add-button">
           <div className="button-content">
           <p>AGREGAR NUEVO USUARIO</p>
-          <img className='imagenAddUser' src="/agregar-usuario.png" alt="Agregar Usuario" />
+          <img className='imagenAddUser' src="/agregar-contacto.png" alt="Agregar Usuario" />
           </div>
           </button>
         </Link>
