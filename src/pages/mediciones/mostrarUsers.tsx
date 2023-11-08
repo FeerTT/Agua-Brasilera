@@ -144,7 +144,7 @@ const ComponenteDondeMostrarUsuarios = () => {
   console.log(userFormDataList, "CORROBORACIÓN");
 
   return (
-    <div>
+    <div className="controladorMostrarUserApp">
       
       <div className="divisorInputs">
         <h1>Cargar Medición</h1>
@@ -189,7 +189,7 @@ const ComponenteDondeMostrarUsuarios = () => {
         />
         {errorTarifa && <p style={{ color: "red" }}>{errorTarifa}</p>}
       </div>
-      <Link href="/">
+      <Link href="/mediciones">
       <img className='regresarImg1' src="/devolver.png" alt="Agregar Usuario" title="Regresar" />
           
           </Link>
@@ -212,7 +212,7 @@ const ComponenteDondeMostrarUsuarios = () => {
             {paginatedUsers.map((user: any) => (
               <tr className="hover-effect" key={user.id}>
                 <td>{user.id}</td>
-                <td>
+                <td className="text-align-left">
                   {user.apellido}, {user.nombre}{" "}
                 </td>
                 <td>

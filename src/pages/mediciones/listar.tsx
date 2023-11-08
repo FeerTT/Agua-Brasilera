@@ -88,7 +88,7 @@ console.log(mediciones, "HOLa")
               <tr className="trTable" key={index} onClick={() => showMedicionDetails(date)}>
                 <td>{date}</td>
                 <td>
-                  <button onClick={() => generatePDF(selectedDate, selectedMediciones)}>
+                  <button className="botonGeneraPdf" onClick={() => generatePDF(selectedDate, selectedMediciones)}>
                     <div className="imagenPdf" title="Descargar PDF"></div>
                   </button>
                   </td>
@@ -118,16 +118,16 @@ console.log(mediciones, "HOLa")
                     <th>Consumo del Mes Anterior</th>
                     <th>Valor 10.000lts Iniciales</th>
                     <th>Tarifa por Excedente</th>
-                    <th>Consumo:</th>
+                    <th>Consumo</th>
                     <th>Total a Pagar</th>
                   </tr>
                 </thead>
                 <tbody>
                   {currentUsers.map((medicion: any, index: number) => (
                     <tr className="hover-effect" key={index}>
-                      <td>{medicion.usuario.id}</td>
-                      <td>{medicion.usuario.nombre}</td>
-                      <td>{medicion.usuario.apellido}</td>
+                      <td className="text-align-left">{medicion.usuario.id}</td>
+                      <td className="text-align-left">{medicion.usuario.nombre}</td>
+                      <td className="text-align-left">{medicion.usuario.apellido}</td>
                       <td>{truncateDate(medicion.mesActual)}</td>
                       <td>{medicion.consumoDelMes}</td>
                       <td>{medicion.consumoDelMesAnterior}</td>
