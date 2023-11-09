@@ -21,7 +21,7 @@ const Listado = () => {
 
   useEffect(() => {
     dispatch(getUsers());
-  }, [userList]);
+  }, []);
 
   const openModal = () => {
     setModalIsOpen(true);

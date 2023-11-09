@@ -38,7 +38,7 @@ const CreateUserConfirmationModal = ({ isOpen, onRequestClose, nombre, apellido,
       <h2>¿Deseas crear un nuevo usuario con los siguientes datos?</h2>
       <p>Nombre: {nombre}</p>
       <p>Apellido: {apellido}</p>
-      <p>Teléfono/Celular: {telefono}</p>
+      {telefono.length ? <p>Teléfono/Celular: {telefono}</p> : <></>}
       <div className="confirmation-buttons">
         <button className="button-confirmar-crear" onClick={handleCreateUser}>
           Confirmar Creación
