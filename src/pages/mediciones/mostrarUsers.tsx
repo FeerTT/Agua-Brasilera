@@ -223,7 +223,9 @@ const ComponenteDondeMostrarUsuarios = () => {
                   />
                 </td>
 
+
                 <td>{user.ultimaMedicion ? user.ultimaMedicion.consumoDelMesAnterior: 0} </td>
+
 
                 <td>{valorFijoGlobal}</td>
                 <td>{tarifaPorExcedenteGlobal}</td>

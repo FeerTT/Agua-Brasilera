@@ -22,7 +22,7 @@ const Listado = () => {
   const [userIdInModal, setUserIdInModal] = useState(null);
   useEffect(() => {
     dispatch(getUsers());
-  }, [userList]);
+  }, []);
 
   const openModal = (userId) => {
     setUserIdInModal(userId);
