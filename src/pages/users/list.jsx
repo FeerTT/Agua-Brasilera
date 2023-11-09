@@ -7,6 +7,7 @@ import EditUserModal from '../../components/userModal';
 import { useState } from 'react';
 import ReactModal from 'react-modal'
 import ReactPaginate from 'react-paginate'
+import { habilitarUser } from '@/redux/actions/action';
 
 const Listado = () => {
   const dispatch = useDispatch();
@@ -18,12 +19,13 @@ const Listado = () => {
   const usersPerPage = 17;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [sortOption, setSortOption] = useState('apellido-asc');
-
+  const [userIdInModal, setUserIdInModal] = useState(null);
   useEffect(() => {
     dispatch(getUsers());
   }, []);
 
-  const openModal = () => {
+  const openModal = (userId) => {
+    setUserIdInModal(userId);
     setModalIsOpen(true);
   };
 
@@ -44,8 +46,12 @@ const Listado = () => {
 
   const closeModal = () => {
     setModalIsOpen(false);
+    setUserIdInModal(null);
   };
-
+ const habilitarUsuario = () => {
+    habilitarUser(userIdInModal, true);
+    closeModal()
+  }
 
   const handleModificarUsuario = (user) => {
     setSelectedUser(user);
@@ -86,6 +92,11 @@ const Listado = () => {
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = sortedUserList.slice(indexOfFirstUser, indexOfLastUser);
   
+  const activeUsers = currentUsers.filter((user) => user.active === true);
+  const disabledUsers = currentUsers.filter((user) => user.active === false);
+  const usersToDisplay = [...activeUsers, ...disabledUsers];
+
+
   return (
     <main>
       <h1 className='h1List'>Usuarios agua potable</h1>
@@ -120,20 +131,43 @@ const Listado = () => {
           </tr>
         </thead>
         <tbody>
-            {currentUsers.map((user) => (
-            <tr className='hover-effect' key={user.id}>
+        {usersToDisplay.map((user) => (
+        <tr className={`hover-effect ${user.active ? '' : 'disabled-user'}`} key={user.id}>
               <td>{user.id}</td>
-              <td>{user.apellido}</td>
-              <td>{user.nombre}</td>
+              <td >{user.apellido}</td>
+              <td >{user.nombre}</td>
               <td>{user.telefono}</td>
               <td>
-              <img className='dibujito' src="/editar.png" title="Editar Usuario" onClick={() => handleModificarUsuario(user)}alt="Agregar Usuario" />
-                {/* <button className='modifyButton' onClick={() => handleModificarUsuario(user)}>Modificar</button> */}
-              </td>
-              <td>
-              <img className='dibujito' src="/eliminar.png" title="Eliminar usuario" onClick={()=> openConfirmationModal(user.id)} alt="Agregar Usuario" />
-                {/* <button className='modifyButton' onClick={()=> openConfirmationModal(user.id)}>Eliminar</button> */}
-              </td>
+              {user.active && (
+                <img
+                  className='logosUser'
+                  src="/editar.png"
+                  title="Editar Usuario"
+                  onClick={() => handleModificarUsuario(user)}
+                  alt="Agregar Usuario"
+                />
+              )}
+            </td>
+            <td>
+              {user.active ? (
+                <img
+                  className='logosUser'
+                  src="/eliminar.png"
+                  title="Deshabilitar Usuario"
+                  onClick={() => openConfirmationModal(user.id)}
+                  alt="Eliminar Usuario"
+                />
+              ) : (
+                <img
+                  className='logosUser'
+                  src="/ver.png"
+                  title="Habilitar Usuario"
+                  onClick={() => openModal(user.id)}
+                  alt="Usuario deshabilitado"
+                />
+              )}
+            </td>
+              
             </tr>
           ))}
         </tbody>
@@ -152,10 +186,10 @@ const Listado = () => {
       className="deleteModal" 
       overlayClassName="modalOverlay"
     >
-      <h2 className="deleteMessage">¿Está seguro de eliminar este usuario?</h2>
+      <h2 className="deleteMessage">¿Está seguro de deshabilitar este usuario?</h2>
       <div className="deleteButtons">
         <button className="confirmButton" onClick={() => handleEliminarUsuario(selectedUserDelete)}>
-          Sí, Eliminar
+          Sí, Deshabilitar
         </button>
         <button className="cancelButton" onClick={() => closeConfirmationModal()}>
           Cancelar
@@ -175,6 +209,18 @@ const Listado = () => {
       pageClassName={'page-item'}
       pageLinkClassName={'page-link'}
     />
+     {modalIsOpen && (
+        <div className="modalImportante-container">
+          <div className="modalImportante">
+            <div className="modalImportante-content">
+              <h2>Confirmar habilitación</h2>
+              <p>¿Estás seguro de que deseas habilitar este usuario?</p>
+              <button onClick={() => habilitarUsuario()}>Habilitar</button>
+              <button onClick={closeModal}>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 };
