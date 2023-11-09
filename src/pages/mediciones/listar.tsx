@@ -86,7 +86,7 @@ const Listado: React.FC = () => {
     indexOfFirstUser,
     indexOfLastUser
   );
-  console.log(mediciones, "HOLa");
+
   return (
     <div>
       <h1 className="h1Provisorio">Listado de Mediciones</h1>
@@ -139,7 +139,7 @@ const Listado: React.FC = () => {
             <h2 className="medition-detail">
               Detalles de Mediciones para {selectedDate}
             </h2>
-            <th>Recaudación este mes: ${getTotalRecaudado()}</th>
+            <p>Recaudación este mes: ${getTotalRecaudado()}</p>
             <div className="table-container">
               <table className="rwd-table">
                 <thead>

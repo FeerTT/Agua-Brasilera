@@ -12,7 +12,7 @@ import Link from "next/link";
 import Modal from "@/components/modalConfirmacion";
 
 const ComponenteDondeMostrarUsuarios = () => {
-  const userList = useSelector((state: any) => state.userReducer.userList);
+  const userList = useSelector((state: any) => state.userReducer.filteredUserList);
   const dispatch = useDispatch();
   const [valorFijoGlobal, setValorFijoGlobal] = useState(0);
   const [tarifaPorExcedenteGlobal, setTarifaPorExcedenteGlobal] = useState(0);
@@ -223,7 +223,7 @@ const ComponenteDondeMostrarUsuarios = () => {
                   />
                 </td>
 
-                <td>{user.ultimaMedicion.consumoDelMesAnterior}</td>
+                <td>{user.ultimaMedicion ? user.ultimaMedicion.consumoDelMesAnterior: 0} </td>
 
                 <td>{valorFijoGlobal}</td>
                 <td>{tarifaPorExcedenteGlobal}</td>

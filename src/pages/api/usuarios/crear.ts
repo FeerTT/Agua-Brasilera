@@ -1,7 +1,6 @@
-import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
+import prisma from '../../../../prisma/prisma';
 
-const prisma = new PrismaClient();
 
 export default async function handler(
     req: NextApiRequest,
@@ -27,4 +26,5 @@ export default async function handler(
     } else {
       res.status(405).json({ error: 'Método no permitido.' });
     }
+    await prisma.$disconnect();
   }

@@ -7,11 +7,10 @@ import '@/styles/styles.scss'
 import Modal from 'react-modal'
 
 
-
-
+require('dotenv').config();
 
 export default function App({ Component, pageProps }: AppProps) {
-
+  
   return (
     <Provider store={store}>
   <Component {...pageProps} />
