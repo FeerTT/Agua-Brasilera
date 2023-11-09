@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '../../../../prisma/prisma';
 
 export default async function handler(
   req: NextApiRequest,
@@ -39,6 +37,7 @@ console.log('Valor de userId después de la conversión:', userId);
   } else {
     res.status(405).json({ error: 'Método no permitido' }); // Método no permitido (debe ser PUT)
   }
+  await prisma.$disconnect();
 }
 
 

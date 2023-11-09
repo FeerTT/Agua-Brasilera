@@ -133,3 +133,15 @@ export const updateTotal = (medicionid: number, totalAPagar: number) =>{
     }
   }
 }
+
+export async function habilitarUser(userId: number, active: boolean): Promise<any> {
+  try {
+    const response = await axios.patch(`http://localhost:3000/api/usuarios/${userId}`, {
+      active,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error al actualizar el usuario', error);
+    throw error;
+  }
+}

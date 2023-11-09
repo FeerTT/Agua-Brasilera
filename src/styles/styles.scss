@@ -10,7 +10,7 @@ $breakpoint-alpha: 480px;
   }
 
   th {
-    display: none; // for accessibility, use a visually hidden method here instead! Thanks, reddit!
+    display: none;
   }
 
   td {
@@ -80,7 +80,7 @@ h1 {
   color: #fff;
   border-radius: 0.4em;
   overflow: hidden;
-  
+  width: 1600px;
   tr {
     border-color: lighten(#34495e, 10%);
   }

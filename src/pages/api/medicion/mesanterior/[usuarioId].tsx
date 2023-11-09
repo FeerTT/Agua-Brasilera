@@ -1,7 +1,7 @@
-import { PrismaClient } from "@prisma/client";
-import { NextApiRequest, NextApiResponse } from "next";
 
-const prisma = new PrismaClient();
+import { NextApiRequest, NextApiResponse } from "next";
+import prisma from "../../../../../prisma/prisma";
+
 
 export default async function handler(
   req: NextApiRequest,
@@ -34,4 +34,5 @@ export default async function handler(
           res.status(500).json({ error: "Error del servidor" });
         }
       }
+      await prisma.$disconnect();
 }
