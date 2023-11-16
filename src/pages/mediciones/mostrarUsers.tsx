@@ -30,7 +30,7 @@ const ComponenteDondeMostrarUsuarios = () => {
   >([]);
   const [modalAbierto, setModalAbierto] = useState(false);
   const [currentPage, setCurrentPage] = useState(0); 
-  const usersPerPage = 5;
+  const usersPerPage = 12;
     const handleCloseModal = () => {
       setModalAbierto(false)
     }

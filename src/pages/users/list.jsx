@@ -7,25 +7,24 @@ import EditUserModal from '../../components/userModal';
 import { useState } from 'react';
 import ReactModal from 'react-modal'
 import ReactPaginate from 'react-paginate'
-import { habilitarUser } from '@/redux/actions/action';
+import { updateUserStatus } from '@/redux/actions/action';
 
 const Listado = () => {
   const dispatch = useDispatch();
+ 
   const userList = useSelector((state) => state.userReducer.userList);
   const [selectedUser, setSelectedUser] = useState(null);
   const [confirmationModalIsOpen, setConfirmationModalIsOpen] = useState(false);
   const [selectedUserDelete, setSelectedUserDelete] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const usersPerPage = 17;
+  const usersPerPage = 12;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [sortOption, setSortOption] = useState('apellido-asc');
   const [userIdInModal, setUserIdInModal] = useState(null);
-  useEffect(() => {
-    dispatch(getUsers());
-  }, []);
-
-  const openModal = (userId) => {
-    setUserIdInModal(userId);
+  
+  
+  const openModal = (userId,) => {
+    setUserIdInModal(userId, true);
     setModalIsOpen(true);
   };
 
@@ -34,25 +33,50 @@ const Listado = () => {
   };
   const sortedUserList = userList.slice().sort((a, b) => {
     const [field, order] = sortOption.split('-');
-    if (field === 'nombre') {
+    if (field === 'id') {
+      return order === 'asc' ? a.id - b.id : b.id - a.id;
+    } else if (field === 'nombre') {
       return order === 'asc' ? a.nombre.localeCompare(b.nombre) : b.nombre.localeCompare(a.nombre);
     } else if (field === 'telefono') {
       return order === 'asc' ? a.telefono.localeCompare(b.telefono) : b.telefono.localeCompare(a.telefono);
     } else {
-
       return order === 'asc' ? a.apellido.localeCompare(b.apellido) : b.apellido.localeCompare(a.apellido);
     }
   });
+  // const sortedUserList = userList.slice().sort((a, b) => {
+  //   const [field, order] = sortOption.split('-');
+  //   if (field === 'nombre') {
+  //     return order === 'asc' ? a.nombre.localeCompare(b.nombre) : b.nombre.localeCompare(a.nombre);
+  //   } else if (field === 'telefono') {
+  //     return order === 'asc' ? a.telefono.localeCompare(b.telefono) : b.telefono.localeCompare(a.telefono);
+  //   } else {
+
+  //     return order === 'asc' ? a.apellido.localeCompare(b.apellido) : b.apellido.localeCompare(a.apellido);
+  //   }
+  // });
 
   const closeModal = () => {
     setModalIsOpen(false);
     setUserIdInModal(null);
   };
  const habilitarUsuario = () => {
-    habilitarUser(userIdInModal, true);
+    dispatch(updateUserStatus(userIdInModal, true));
     closeModal()
+    setUserIdInModal(null);
   }
 
+  const handleEliminarUsuario = (userId) => {
+    dispatch(updateUserStatus(userId, false));
+    closeConfirmationModal();
+  };
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [handleEliminarUsuario, ]);
+
+  const openConfirmationModal = (userId) => {
+    setSelectedUserDelete(userId, true);
+    setConfirmationModalIsOpen(true);
+  };
   const handleModificarUsuario = (user) => {
     setSelectedUser(user);
   };
@@ -66,17 +90,7 @@ const Listado = () => {
     setSelectedUser(null);
   };
 
-  const handleEliminarUsuario = (userId) =>{
-    dispatch(deleteUser(userId));
-    dispatch(getUsers());
-    setConfirmationModalIsOpen(false);
-  };
-
-
-  const openConfirmationModal = (userId) => {
-    setSelectedUserDelete(userId);
-    setConfirmationModalIsOpen(true);
-  };
+  
   
   const closeConfirmationModal = () => {
     setConfirmationModalIsOpen(false);
@@ -92,10 +106,22 @@ const Listado = () => {
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = sortedUserList.slice(indexOfFirstUser, indexOfLastUser);
   
-  const activeUsers = currentUsers.filter((user) => user.active === true);
-  const disabledUsers = currentUsers.filter((user) => user.active === false);
-  const usersToDisplay = [...activeUsers, ...disabledUsers];
+  // const activeUsers = currentUsers.filter((user) => user.active === true);
+  // const disabledUsers = currentUsers.filter((user) => user.active === false);
 
+
+  // const usersToDisplay = [...activeUsers, ...disabledUsers];
+  const usersToDisplay = useSelector((state) => {
+    if (state.userReducer.userList && state.userReducer.userList.length > 0) {
+      const sortedList = state.userReducer.userList.slice().sort((a, b) => a.id - b.id);
+      const activeUsers = sortedList.filter((user) => user.active === true);
+      const disabledUsers = sortedList.filter((user) => user.active === false);
+
+      const currentUsers = [...activeUsers, ...disabledUsers];
+      return currentUsers.slice(indexOfFirstUser, indexOfLastUser);
+    }
+    return [];
+  });
 
   return (
     <main>
@@ -154,7 +180,7 @@ const Listado = () => {
                   className='logosUser'
                   src="/eliminar.png"
                   title="Deshabilitar Usuario"
-                  onClick={() => openConfirmationModal(user.id)}
+                  onClick={() => openConfirmationModal(user.id, false)}
                   alt="Eliminar Usuario"
                 />
               ) : (
@@ -162,7 +188,7 @@ const Listado = () => {
                   className='logosUser'
                   src="/ver.png"
                   title="Habilitar Usuario"
-                  onClick={() => openModal(user.id)}
+                  onClick={() => openModal(user.id, true)}
                   alt="Usuario deshabilitado"
                 />
               )}
@@ -215,7 +241,7 @@ const Listado = () => {
             <div className="modalImportante-content">
               <h2>Confirmar habilitación</h2>
               <p>¿Estás seguro de que deseas habilitar este usuario?</p>
-              <button onClick={() => habilitarUsuario()}>Habilitar</button>
+              <button onClick={() => habilitarUsuario(userIdInModal)}>Habilitar</button>
               <button onClick={closeModal}>Cancelar</button>
             </div>
           </div>

@@ -171,7 +171,6 @@ const Listado: React.FC = () => {
                         {medicion.consumoDelMes -
                           medicion.consumoDelMesAnterior}
                       </td>
-                      <td>{medicion.id}</td>
                       <td>
                         {index === editingIndex ? (
                           <input
