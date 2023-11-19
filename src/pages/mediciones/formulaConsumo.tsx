@@ -6,20 +6,35 @@ function UserForm({
   valorFijoGlobal,
   tarifaPorExcedenteGlobal,
 }: any) {
-  const [formData, setFormData] = useState<any>({
-    usuarioId: user.id,
-    consumoDelMesAnterior: user.ultimaMedicion
-      ? user.ultimaMedicion.consumoDelMesAnterior
-      : 0,
-    consumoDelMes: user.ultimaMedicion
-      ? parseInt(user.ultimaMedicion.consumoDelMes)
-      : 0,
-    valorFijoGlobal: valorFijoGlobal !== 0 ? valorFijoGlobal : 0,
-    tarifaPorExcedenteGlobal:
-      tarifaPorExcedenteGlobal !== 0 ? tarifaPorExcedenteGlobal : 0,
-    excedenteEnLitros: 0,
-    totalAPagar: 0,
-  });
+  // const [formData, setFormData] = useState<any>({
+  //   usuarioId: user.id,
+  //   consumoDelMesAnterior: user.ultimaMedicion
+  //     ? user.ultimaMedicion.consumoDelMesAnterior
+  //     : 0,
+  //   consumoDelMes: user.ultimaMedicion
+  //     ? parseInt(user.ultimaMedicion.consumoDelMes)
+  //     : 0,
+  //   valorFijoGlobal: valorFijoGlobal !== 0 ? valorFijoGlobal : 0,
+  //   tarifaPorExcedenteGlobal:
+  //     tarifaPorExcedenteGlobal !== 0 ? tarifaPorExcedenteGlobal : 0,
+  //   excedenteEnLitros: 0,
+  //   totalAPagar: 0,
+  // });
+      const [formData, setFormData] = useState<any>({
+        usuarioId: user && user.id ? user.id : 0,
+        consumoDelMesAnterior: user && user.ultimaMedicion && user.ultimaMedicion.consumoDelMesAnterior
+          ? user.ultimaMedicion.consumoDelMesAnterior
+          : 0,
+        consumoDelMes: user && user.ultimaMedicion && user.ultimaMedicion.consumoDelMes
+          ? parseInt(user.ultimaMedicion.consumoDelMes)
+          : 0,
+        valorFijoGlobal: valorFijoGlobal !== 0 ? valorFijoGlobal : 0,
+        tarifaPorExcedenteGlobal: tarifaPorExcedenteGlobal !== 0 ? tarifaPorExcedenteGlobal : 0,
+        excedenteEnLitros: 0,
+        totalAPagar: 0,
+      });
+      /////////////////////TODAVIA HAY QUE TESTEAR ESTE CÓDIGO, SI NO SE PONEN LAS VERIFICACIONES :0 CUANDO DOY NPM RUN BUILD EJECUTA MARCANDO ERROR Y NO COMPILA CORRECTAMENTE.
+
 
   const handleCalculationClick = (event: any) => {
     event.preventDefault();

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 const UsersPage = () => {
 
@@ -11,6 +12,12 @@ const UsersPage = () => {
           <button className="view-modify-button">
             VER MEDICIONES
             <img className='imagenAddUser2' src="/eficiencia.png" alt="Agregar Usuario" />
+            {/* <Image 
+            src="/eficiencia.png"
+            alt="Agregar Usuario"
+            width={2}
+            height={2}
+            /> */}
           </button>
         </Link>
         <Link href="/mediciones/mostrarUsers">

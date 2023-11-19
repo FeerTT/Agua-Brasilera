@@ -7,6 +7,7 @@ const generatePDF = (selectedDate, selectedMediciones) => {
         return `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}`;
       };
     const doc = new jsPDF("landscape");
+    
     const columns = [
         "ID",
         "Apellido",
@@ -20,7 +21,11 @@ const generatePDF = (selectedDate, selectedMediciones) => {
         "Total a Pagar",
         
       ];
-
+      if (!Array.isArray(selectedMediciones) || selectedMediciones.length === 0) {
+        console.error('selectedMediciones is not a non-empty array');
+        return; // Manejar el error o salir de la función según sea necesario
+    }
+  console.log(selectedMediciones, "CL DE SELECTED MEDICIONES")
       const rows = selectedMediciones.map((medicion) => [
         medicion.usuario.id,
         medicion.usuario.apellido,

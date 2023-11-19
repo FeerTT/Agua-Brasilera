@@ -59,22 +59,16 @@ export const userReducer = createReducer(initialState, (builder) => {
   const sortedActiveUserList = activeUserList.sort((a, b) => a.id - b.id);
   const sortedAllUserList = actualizados.sort((a, b) => a.id - b.id);
 
-  state.userList = sortedAllUserList;
-  state.filteredUserList = sortedActiveUserList;
+  // state.userList = sortedAllUserList;
+  // state.filteredUserList = sortedActiveUserList;
+  return {
+    ...state,
+    userList: sortedAllUserList,
+    filteredUserList: sortedActiveUserList,
+  };
+
   })
-  // builder
-  //   .addCase(GET_USER_LIST, (state, action) => {
-  //     console.log(action.payload);
-  //     const actualizados = action.payload.map((user: any) => {
-  //       if (user.ultimaMedicion) {
-  //         user.ultimaMedicion.consumoDelMesAnterior =
-  //           user.ultimaMedicion.consumoDelMes;
-  //       }
-  //       return user;
-  //     });
-  //     console.log("actualziados", actualizados);
-  //     state.userList = actualizados.sort((a, b) => a.id - b.id);;
-  //   })
+  
     .addCase(AGREGAR_USUARIO, (state, action) => {
       const newUser = action.payload;
       state.userList.push(newUser);
@@ -109,3 +103,16 @@ export const userReducer = createReducer(initialState, (builder) => {
       state.medicionList.push(nuevaMedicion);
     })
 });
+// builder
+  //   .addCase(GET_USER_LIST, (state, action) => {
+  //     console.log(action.payload);
+  //     const actualizados = action.payload.map((user: any) => {
+  //       if (user.ultimaMedicion) {
+  //         user.ultimaMedicion.consumoDelMesAnterior =
+  //           user.ultimaMedicion.consumoDelMes;
+  //       }
+  //       return user;
+  //     });
+  //     console.log("actualziados", actualizados);
+  //     state.userList = actualizados.sort((a, b) => a.id - b.id);;
+  //   })

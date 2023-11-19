@@ -10,6 +10,7 @@ import UserForm from "./formulaConsumo";
 import ReactPaginate from "react-paginate";
 import Link from "next/link";
 import Modal from "@/components/modalConfirmacion";
+import Image from "next/image";
 
 const ComponenteDondeMostrarUsuarios = () => {
   const userList = useSelector((state: any) => state.userReducer.filteredUserList);
@@ -189,9 +190,15 @@ const ComponenteDondeMostrarUsuarios = () => {
         {errorTarifa && <p style={{ color: "red" }}>{errorTarifa}</p>}
       </div>
       <Link href="/mediciones">
-      <img className='regresarImg1' src="/devolver.png" alt="Agregar Usuario" title="Regresar" />
-          
-          </Link>
+      <Image
+        className='regresarImg1'
+        src="/devolver.png"
+        width={60}
+        height={60}
+        alt="Agregar Usuario"
+        title="Regresar"
+      />
+      </Link>
       <form>
         <table className="rwd-table">
           <thead>

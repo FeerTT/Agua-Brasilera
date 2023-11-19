@@ -4,10 +4,10 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-      <body id='backgroundImg'>
+      {/* <body id='backgroundImg'> */}
         <Main />
         <NextScript />
-      </body>
+      
     </Html>
   )
 }

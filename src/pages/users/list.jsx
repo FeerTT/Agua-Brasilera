@@ -8,6 +8,7 @@ import { useState } from 'react';
 import ReactModal from 'react-modal'
 import ReactPaginate from 'react-paginate'
 import { updateUserStatus } from '@/redux/actions/action';
+import Image from 'next/image';
 
 const Listado = () => {
   const dispatch = useDispatch();
@@ -43,17 +44,7 @@ const Listado = () => {
       return order === 'asc' ? a.apellido.localeCompare(b.apellido) : b.apellido.localeCompare(a.apellido);
     }
   });
-  // const sortedUserList = userList.slice().sort((a, b) => {
-  //   const [field, order] = sortOption.split('-');
-  //   if (field === 'nombre') {
-  //     return order === 'asc' ? a.nombre.localeCompare(b.nombre) : b.nombre.localeCompare(a.nombre);
-  //   } else if (field === 'telefono') {
-  //     return order === 'asc' ? a.telefono.localeCompare(b.telefono) : b.telefono.localeCompare(a.telefono);
-  //   } else {
 
-  //     return order === 'asc' ? a.apellido.localeCompare(b.apellido) : b.apellido.localeCompare(a.apellido);
-  //   }
-  // });
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -63,16 +54,18 @@ const Listado = () => {
     dispatch(updateUserStatus(userIdInModal, true));
     closeModal()
     setUserIdInModal(null);
+    window.location.reload();
   }
 
   const handleEliminarUsuario = (userId) => {
     dispatch(updateUserStatus(userId, false));
     closeConfirmationModal();
+    window.location.reload();
   };
   useEffect(() => {
     dispatch(getUsers());
-  }, [handleEliminarUsuario, ]);
-
+  }, []);
+  console.log(userList, "holis")
   const openConfirmationModal = (userId) => {
     setSelectedUserDelete(userId, true);
     setConfirmationModalIsOpen(true);
@@ -106,22 +99,11 @@ const Listado = () => {
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = sortedUserList.slice(indexOfFirstUser, indexOfLastUser);
   
-  // const activeUsers = currentUsers.filter((user) => user.active === true);
-  // const disabledUsers = currentUsers.filter((user) => user.active === false);
+   const activeUsers = currentUsers.filter((user) => user.active === true);
+   const disabledUsers = currentUsers.filter((user) => user.active === false);
 
 
-  // const usersToDisplay = [...activeUsers, ...disabledUsers];
-  const usersToDisplay = useSelector((state) => {
-    if (state.userReducer.userList && state.userReducer.userList.length > 0) {
-      const sortedList = state.userReducer.userList.slice().sort((a, b) => a.id - b.id);
-      const activeUsers = sortedList.filter((user) => user.active === true);
-      const disabledUsers = sortedList.filter((user) => user.active === false);
-
-      const currentUsers = [...activeUsers, ...disabledUsers];
-      return currentUsers.slice(indexOfFirstUser, indexOfLastUser);
-    }
-    return [];
-  });
+   const usersToShow = [...activeUsers, ...disabledUsers];
 
   return (
     <main>
@@ -157,7 +139,7 @@ const Listado = () => {
           </tr>
         </thead>
         <tbody>
-        {usersToDisplay.map((user) => (
+        {usersToShow.map((user) => (
         <tr className={`hover-effect ${user.active ? '' : 'disabled-user'}`} key={user.id}>
               <td>{user.id}</td>
               <td >{user.apellido}</td>
@@ -165,32 +147,44 @@ const Listado = () => {
               <td>{user.telefono}</td>
               <td>
               {user.active && (
-                <img
-                  className='logosUser'
-                  src="/editar.png"
-                  title="Editar Usuario"
-                  onClick={() => handleModificarUsuario(user)}
-                  alt="Agregar Usuario"
-                />
+                <Image
+                className='logosUser'
+                src="/editar.png"
+                width={50}
+                height={50}
+                alt="Agregar Usuario"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleModificarUsuario(user);
+                }}
+                title="Editar Usuario"
+              />
+                
               )}
             </td>
             <td>
               {user.active ? (
-                <img
-                  className='logosUser'
-                  src="/eliminar.png"
-                  title="Deshabilitar Usuario"
-                  onClick={() => openConfirmationModal(user.id, false)}
-                  alt="Eliminar Usuario"
+                
+                <Image
+                className='logosUser'
+                src="/eliminar.png"
+                width={50} 
+                height={50} 
+                alt="Eliminar Usuario"
+                title="Deshabilitar Usuario"
+                onClick={() => openConfirmationModal(user.id, false)}
                 />
+                
               ) : (
-                <img
-                  className='logosUser'
-                  src="/ver.png"
-                  title="Habilitar Usuario"
-                  onClick={() => openModal(user.id, true)}
-                  alt="Usuario deshabilitado"
-                />
+                <Image
+                className='logosUser'
+                src="/ver.png"
+                width={50} 
+                height={50} 
+                alt="Usuario deshabilitado"
+                title="Habilitar Usuario"
+                onClick={() => openModal(user.id, true)}
+              />
               )}
             </td>
               
