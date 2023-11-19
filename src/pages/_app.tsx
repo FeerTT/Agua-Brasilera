@@ -8,7 +8,7 @@ import Modal from 'react-modal'
 
 
 require('dotenv').config();
-
+Modal.setAppElement('#__next');
 export default function App({ Component, pageProps }: AppProps) {
   
   return (

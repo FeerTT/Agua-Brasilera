@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { createUser } from '@/redux/actions/action';
+import { useEffect } from 'react';
 
 const CreateUserConfirmationModal = ({ isOpen, onRequestClose, nombre, apellido, telefono }) => {
   const dispatch = useDispatch();
@@ -11,21 +12,32 @@ const CreateUserConfirmationModal = ({ isOpen, onRequestClose, nombre, apellido,
     apellido: '',
     telefono: '',
   });
-  const handleCreateUser = () => {
-    const userData = {
+
+  useEffect(() => {
+    // Actualiza el estado local cuando cambian las propiedades externas
+    setFormData({
       nombre,
       apellido,
       telefono,
+    });
+  }, [nombre, apellido, telefono]);
+
+  const handleCreateUser = () => {
+    const userData = {
+      nombre: formData.nombre,
+      apellido: formData.apellido,
+      telefono: formData.telefono,
     };
 
-    dispatch(createUser(userData)); // Dispatch para crear el usuario
+    dispatch(createUser(userData));
     setFormData({
-        nombre:'',
-        apellido:'',
-        telefono:'',
-    })
-    onRequestClose(); // Cierra el modal después de la creación
+      nombre: '',
+      apellido: '',
+      telefono: '',
+    });
+    onRequestClose();
   };
+
 
   return (
     <ReactModal

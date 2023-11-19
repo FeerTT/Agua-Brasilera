@@ -2,11 +2,10 @@ import { Dispatch, createAction } from "@reduxjs/toolkit";
 import { Medicion, Usuario } from "@prisma/client";
 import axios from "axios";
 
-
 export const GET_USER_LIST = createAction<Usuario[]>("GET_USER_LIST");
 export const AGREGAR_USUARIO = createAction<Usuario>("AGREGAR_USUARIO");
 export const EDITAR_USUARIO = createAction<Usuario>("EDITAR_USUARIO");
-export const ELIMINAR_USUARIO = createAction<number>("ELIMINAR_USUARIO");
+export const UPDATE_USER_STATUS = createAction<{userId: number; active: boolean}>("ACTUALIZAR_ESTADO");
 export const GET_MEDICIONES = createAction<Medicion[]>("GET_MEDICIONES");
 export const CREAR_MEDICION = createAction<Medicion[]>("CREAR_MEDICION");
 export const getMedicionMesAnterior = createAction("GET_MEDICION_MES_ANTERIOR");
@@ -16,12 +15,9 @@ export const ELIMINAR_MEDICION = createAction<Medicion[]>("ELIMINAR_MEDICIONES")
 export const eliminarTodasLasMediciones = () => {
   return async (dispatch: Dispatch) => {
     try {
-      // Realiza una solicitud DELETE a la API para eliminar todas las mediciones
       await axios.delete("http://localhost:3000/api/medicion/eliminar");
-      // Opcionalmente, puedes realizar alguna otra acción después de la eliminación exitosa
     } catch (error) {
       console.error("Error al eliminar todas las mediciones:", error);
-      // Maneja cualquier error o muestra un mensaje de error al usuario si es necesario
     }
   };
 };
@@ -55,18 +51,18 @@ export const modificarUsers = (usuarioId: number, newData: Usuario) => {
   };
 };
 
-export const deleteUser = (usuarioId: number) => {
-  return async (dispatch: Dispatch) => {
-    try {
-      const response = await axios.delete<Usuario[]>(
-        `http://localhost:3000/api/usuarios/${usuarioId}`
-      );
-      dispatch({ type: ELIMINAR_USUARIO, payload: response.data });
-    } catch (error) {
-      console.error("Error al eliminar el usuario:", error);
-    }
-  };
-};
+// export const deleteUser = (usuarioId: number) => {
+//   return async (dispatch: Dispatch) => {
+//     try {
+//       const response = await axios.patch<Usuario[]>(
+//         `http://localhost:3000/api/usuarios/${usuarioId}`
+//       );
+//       dispatch({ type: ELIMINAR_USUARIO, payload: response.data });
+//     } catch (error) {
+//       console.error("Error al eliminar el usuario:", error);
+//     }
+//   };
+// };
 
 export const createUser = (data: any) => {
   return async (dispatch: Dispatch) => {
@@ -134,14 +130,29 @@ export const updateTotal = (medicionid: number, totalAPagar: number) =>{
   }
 }
 
-export async function habilitarUser(userId: number, active: boolean): Promise<any> {
-  try {
-    const response = await axios.patch(`http://localhost:3000/api/usuarios/${userId}`, {
-      active,
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error al actualizar el usuario', error);
-    throw error;
-  }
-}
+// export async function habilitarUser(userId: number, active: boolean): Promise<any> {
+//   try {
+//     const response = await axios.patch(`http://localhost:3000/api/usuarios/${userId}`, {
+//       active,
+//     });
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error al actualizar el usuario', error);
+//     throw error;
+//   }
+// }
+
+export const updateUserStatus = (usuarioId: number, active: boolean) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await axios.patch<Usuario[]>(
+        `http://localhost:3000/api/usuarios/${usuarioId}`,
+        { active }
+      );
+      const data = response.data
+      dispatch(UPDATE_USER_STATUS(data as any));
+    } catch (error) {
+      console.error(`Error al ${active ? 'activar' : 'desactivar'} el usuario:`, error);
+    }
+  };
+};

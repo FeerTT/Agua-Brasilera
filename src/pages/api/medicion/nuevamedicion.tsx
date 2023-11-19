@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     try {
-      const medicionesData = req.body; // Arreglo de objetos con datos de mediciones
+      const medicionesData = req.body; // LLEGA COMO ARRAY DE OBJ
       const nuevasMediciones = [];
   
       for (const medicionData of medicionesData) {
@@ -19,7 +19,8 @@ export default async function handler(
           totalAPagar,
           valorFijo,
         } = medicionData;
-        const fechaActual = new Date();
+        const fechaActual = new Date(); 
+        //FORMA DE HARDCODEAR FECHA new Date('2023-10-15T00:00:00Z') CAMBIAR VALORES
         const fechaActualString =  fechaActual.toISOString();
         const consumoDelMesNum = consumoDelMes;
         const consumoDelMesAnteriorNum = parseInt(consumoDelMesAnterior);

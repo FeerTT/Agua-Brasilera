@@ -18,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen }) => {
 
   return (
     <div>
-      <button onClick={closeModal}>Cerrar Modal</button>
+      
       {isModalOpen && (
         <div className="modalConfirmacion">
           <div className="modal-confirmacion-content">
