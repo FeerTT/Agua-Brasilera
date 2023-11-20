@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import CreateUserConfirmationModal from '../../components/createModal';
 import { useDispatch } from 'react-redux';
-import Link from 'next/link';
+import Link from "next/link";
+import Image from "next/image";
+
 const AddUserForm = () => {
     const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -49,43 +51,44 @@ const AddUserForm = () => {
     <form className="add-user-form" onSubmit={handleSubmit}>
         <h1>Formulario de registro para nuevos usuarios de agua potable</h1>
       <div className="form-group">
-        <label htmlFor="nombre" className="form-label">
-          Nombre:
-        </label>
-        <input
-          type="text"
-          id="nombre"
-          name="nombre"
-          value={formData.nombre}
-          onChange={handleChange}
-          className="form-input"
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="apellido" className="form-label">
-          Apellido:
-        </label>
-        <input
-          type="text"
-          id="apellido"
-          name="apellido"
-          value={formData.apellido}
-          onChange={handleChange}
-          className="form-input"
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="telefono" className="form-label">
-          Teléfono:
-        </label>
-        <input
-          type="text"
-          id="telefono"
-          name="telefono"
-          value={formData.telefono}
-          onChange={handleChange}
-          className="form-input"
-        />
+      <label className='labelPruebaGoogle'>
+      <input
+        type='text'
+        className='inputPruebaGoogle'
+        id='nombre'
+        name='nombre'
+        value={formData.nombre}
+        onChange={handleChange}
+        placeholder=' '
+      />
+      <span className='spanPruebaGoogle'>Ingresa Nombre:</span>
+    </label>
+
+    <label className='labelPruebaGoogle'>
+      <input
+        type='text'
+        className='inputPruebaGoogle'
+        id='apellido'
+        name='apellido'
+        value={formData.apellido}
+        onChange={handleChange}
+        placeholder=' '
+      />
+      <span className='spanPruebaGoogle'>Ingresa Apellido:</span>
+    </label>
+
+    <label className='labelPruebaGoogle'>
+      <input
+        type='text'
+        className='inputPruebaGoogle'
+        id='telefono'
+        name='telefono'
+        value={formData.telefono}
+        onChange={handleChange}
+        placeholder=' '
+      />
+      <span className='spanPruebaGoogle'>Ingresa Teléfono:</span>
+    </label>
       </div>
       <button type="submit" className="form-button">
         Crear usuario
@@ -99,13 +102,30 @@ const AddUserForm = () => {
         telefono={formData.telefono}
       />
   </div>
+    {/* <label className='labelPruebaGoogle'>
+      <input className='inputPruebaGoogle' type='text' class="input" placeholder=" " />
+      <span className='spanPruebaGoogle'>Ingresa Nombre:</span>
+    </label> */}
+
   <div className='divRegresarUsuario'>
-        <Link href="/users">
-          <img className='regresarImg' src="/devolver.png" alt="Agregar Usuario" title="Regresar"  />
-        </Link>
+  <Link href="/">
+      <Image
+        className='regresarImg1'
+        src="/devolver.png"
+        width={60}
+        height={60}
+        alt="Agregar Usuario"
+        title="Regresar"
+      />
+    </Link>
       </div>
   </main>
-  );
+ );
 };
 
 export default AddUserForm;
+
+
+
+    
+ 

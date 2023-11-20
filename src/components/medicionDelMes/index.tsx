@@ -25,15 +25,18 @@ const MedicionDelMes: React.FC = () => {
     }
   }, [filteredUserList, hasMeasurementThisMonth]);
   
+  
   const svgClass = `circulars-chart pink ${hasMeasurements ? 'has-measurements' : ''}`;
   const tickOrCross = hasMeasurements ? '\u2713' : '\u2717';
   const textClass = hasMeasurements ? 'green-text' : 'red-text';
+
+
   return (
     <>
       <div className="chart-info-wrapper">
         <h2 id="userTotal">Medición del mes</h2>
         <span>{hasMeasurements ? 'Mediciones del mes cargadas correctamente' : 'Aún no tiene mediciones este mes'}</span>
-        <div id="divisorImportante"></div>
+        <div id="divisorImportante1"></div>
       </div>
       <div className="chart-svg">
       <svg viewBox="0 0 36 36" className={svgClass}>

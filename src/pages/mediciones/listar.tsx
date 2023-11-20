@@ -94,7 +94,7 @@ const Listado: React.FC = () => {
     <div>
       <h1 className="h1Provisorio">Listado de Mediciones</h1>
       <div className="contenedorListar">
-        <Link href="/mediciones">
+        <Link href="/">
         <Image
           className="regresarImg"
           src="/devolver.png"

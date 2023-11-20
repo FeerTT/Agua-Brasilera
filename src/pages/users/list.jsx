@@ -65,7 +65,7 @@ const Listado = () => {
   useEffect(() => {
     dispatch(getUsers());
   }, []);
-  console.log(userList, "holis")
+  console.log(userList, "Console log de userList en users - list.jsx")
   const openConfirmationModal = (userId) => {
     setSelectedUserDelete(userId, true);
     setConfirmationModalIsOpen(true);
@@ -110,8 +110,16 @@ const Listado = () => {
       <h1 className='h1List'>Usuarios agua potable</h1>
       
     <div className='contenedorBotonMas'>
-      <Link href="/users">
-      <img className='regresarImg' src="/devolver.png" alt="Agregar Usuario" title="Regresar"  />
+      <Link href="/">
+      <Image
+        className='regresarImg'
+        src="/devolver.png"
+        alt="Agregar Usuario"
+        title="Regresar"
+        width={60} 
+        height={60} 
+        
+      />
       </Link>
       <div className='sortContainer'>
         <label className='sort' htmlFor="sort">Ordenar por:</label>
