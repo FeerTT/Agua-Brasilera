@@ -4,6 +4,9 @@ import { getMediciones, updateTotal } from "@/redux/actions/action";
 import generatePDF from "../mediciones/pdf";
 import ReactPaginate from "react-paginate";
 import Link from "next/link";
+import Image from "next/image";
+
+
 const Listado: React.FC = () => {
   const dispatch = useDispatch();
   const mediciones = useSelector(
@@ -91,13 +94,15 @@ const Listado: React.FC = () => {
     <div>
       <h1 className="h1Provisorio">Listado de Mediciones</h1>
       <div className="contenedorListar">
-        <Link href="/mediciones">
-          <img
-            className="regresarImg"
-            src="/devolver.png"
-            alt="Agregar Usuario"
-            title="Regresar"
-          />
+        <Link href="/">
+        <Image
+          className="regresarImg"
+          src="/devolver.png"
+          width={60}
+          height={60}
+          alt="Agregar Usuario"
+          title="Regresar"
+        />
         </Link>
       </div>
 

@@ -15,7 +15,8 @@ model Usuario {
   nombre String
   apellido String
   telefono String
-  active    Boolean  @default(true)
+  active Boolean @default(true)
+  createdAt DateTime @default(now())
   mediciones Medicion[] @relation(name: "mediciones")
 }
 
@@ -28,5 +29,6 @@ model Medicion {
   tarifaExcedente Int
   totalAPagar Int
   valorFijo Int
+  createdAt DateTime @default(now())
   usuario Usuario @relation(name: "mediciones", fields: [usuarioId], references: [id])
 }

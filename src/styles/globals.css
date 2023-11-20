@@ -40,6 +40,7 @@
   --card-border-rgb: 131, 134, 135;
 }
 
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -72,7 +73,54 @@
     --card-border-rgb: 200, 200, 200;
   }
 }
-
+.circulars-chart.pink {
+  /* Otros estilos */
+  stroke: red; /* Color por defecto del borde */
+}
+.contenedorTexto{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  
+}
+.circulars-chart.pink.has-measurements {
+  /* position: relative;
+  top: 60px; */
+  stroke: green; /* Color del borde si hay mediciones */
+}
+#spanTotalUsers{
+  position: relative;
+  bottom: 5px;
+}
+#spanEsteMes{
+  padding-left: 10px;
+  font-size: 20px;
+  position: relative;
+  top: 10px;
+}
+#userTotal{
+  padding-left: 10px;
+  font-size: 16px;
+}
+#divisorImportante{
+  height: 95px;
+}
+#divisorImportante1{
+  height: 79px;
+}
+#divisorImportanteCaja{
+  height: 75px;
+}
+#textInactiveUser{
+  padding-left: 10px;
+  
+  color: #ff7dcb;
+}
+#textActiveUser{
+  padding-left: 10px;
+  
+  color: #6f5684;
+}
 * {
   box-sizing: border-box;
   padding: 0;
@@ -1136,4 +1184,36 @@ height: 50px;
   border-radius: 50%;
   position: relative;
   left: 2px;
+}
+
+.labelPruebaGoogle{
+  display: grid;
+  width: 100%;
+  padding: 1.5rem 0;
+  
+  grid-template-areas: "input";
+
+   > * {
+    grid-area: input;
+   }
+}
+.spanPruebaGoogle{
+  font-size: 25px;
+  transform-origin: left;
+  transition: transform .3s, color .3s;
+}
+
+.inputPruebaGoogle{
+  height: 100%;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #C06C84;
+  font: inherit;  
+
+  &:focus + .spanPruebaGoogle,
+  &:not(:placeholder-shown) + .spanPruebaGoogle{
+    color: #F67280;
+    transform: translate(0,-100%) scale(.8);
+  }
+
 }

@@ -3,10 +3,10 @@ import {
   GET_USER_LIST,
   AGREGAR_USUARIO,
   EDITAR_USUARIO,
-  ELIMINAR_USUARIO,
   GET_MEDICIONES,
   CREAR_MEDICION,
   getMedicionMesAnterior,
+  UPDATE_USER_STATUS,
 } from "../actions/action";
 
 type Usuario = {
@@ -31,7 +31,7 @@ type Medicion = {
     telefono: string;
   };
 };
-// Define el tipo del estado
+
 type UserState = {
   userList: Usuario[];
   medicionList: Medicion[];
@@ -59,22 +59,16 @@ export const userReducer = createReducer(initialState, (builder) => {
   const sortedActiveUserList = activeUserList.sort((a, b) => a.id - b.id);
   const sortedAllUserList = actualizados.sort((a, b) => a.id - b.id);
 
-  state.userList = sortedAllUserList;
-  state.filteredUserList = sortedActiveUserList;
+  // state.userList = sortedAllUserList;
+  // state.filteredUserList = sortedActiveUserList;
+  return {
+    ...state,
+    userList: sortedAllUserList,
+    filteredUserList: sortedActiveUserList,
+  };
+
   })
-  // builder
-  //   .addCase(GET_USER_LIST, (state, action) => {
-  //     console.log(action.payload);
-  //     const actualizados = action.payload.map((user: any) => {
-  //       if (user.ultimaMedicion) {
-  //         user.ultimaMedicion.consumoDelMesAnterior =
-  //           user.ultimaMedicion.consumoDelMes;
-  //       }
-  //       return user;
-  //     });
-  //     console.log("actualziados", actualizados);
-  //     state.userList = actualizados.sort((a, b) => a.id - b.id);;
-  //   })
+  
     .addCase(AGREGAR_USUARIO, (state, action) => {
       const newUser = action.payload;
       state.userList.push(newUser);
@@ -88,11 +82,18 @@ export const userReducer = createReducer(initialState, (builder) => {
         state.userList[index] = { ...state.userList[index], ...editedUser };
       }
     })
-    .addCase(ELIMINAR_USUARIO, (state, action) => {
-      const userIdToDelete = action.payload;
-      state.userList = state.userList.filter(
-        (user) => user.id !== userIdToDelete
-      );
+    .addCase(UPDATE_USER_STATUS, (state, action:any) => {
+      const { userId, active } = action.payload;
+      if (active === false) {
+        state.userList = state.userList.map(user =>
+          user.id === userId ? { ...user, active: false } : user
+        );
+      } else {
+        const activatedUser = state.userList.find(user => user.id === userId);
+        if (activatedUser) {
+          console.log(`Usuario ${activatedUser.nombre} activado.`);
+        }
+      }
     })
     .addCase(GET_MEDICIONES, (state, action) => {
       state.medicionList = action.payload.sort((a, b) => a.id - b.id) as any;
@@ -102,3 +103,16 @@ export const userReducer = createReducer(initialState, (builder) => {
       state.medicionList.push(nuevaMedicion);
     })
 });
+// builder
+  //   .addCase(GET_USER_LIST, (state, action) => {
+  //     console.log(action.payload);
+  //     const actualizados = action.payload.map((user: any) => {
+  //       if (user.ultimaMedicion) {
+  //         user.ultimaMedicion.consumoDelMesAnterior =
+  //           user.ultimaMedicion.consumoDelMes;
+  //       }
+  //       return user;
+  //     });
+  //     console.log("actualziados", actualizados);
+  //     state.userList = actualizados.sort((a, b) => a.id - b.id);;
+  //   })
