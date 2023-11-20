@@ -189,7 +189,7 @@ const ComponenteDondeMostrarUsuarios = () => {
         />
         {errorTarifa && <p style={{ color: "red" }}>{errorTarifa}</p>}
       </div>
-      <Link href="/mediciones">
+      <Link href="/">
       <Image
         className='regresarImg1'
         src="/devolver.png"

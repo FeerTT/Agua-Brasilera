@@ -7,10 +7,10 @@ const CantidadUsers: React.FC = () => {
   const dispatch = useDispatch();
   const userList = useSelector((state: any) => state.userReducer.userList);
   const filteredUserList = useSelector((state: any) => state.userReducer.filteredUserList);
-  useEffect(() => {
-    dispatch(getUsers() as any);
-  }, [dispatch]);
-  console.log(userList, filteredUserList, "hola")
+  // useEffect(() => {
+  //   dispatch(getUsers() as any);
+  // }, [dispatch]);
+  
   const totalUsers = userList.length;
   const disabledUsers = filteredUserList.length;
   const percentageDisabled = ((disabledUsers / totalUsers) * 100).toFixed(1);
@@ -37,8 +37,8 @@ const CantidadUsers: React.FC = () => {
             d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
           ></path>
           <text x="18" y="20.35" className="percentage">
-            {`${percentageDisabled}%`}
-          </text>
+          {`${percentageDisabled ? `${percentageDisabled}%`: "100%"}`}
+        </text>
         </svg>
       </div>
     

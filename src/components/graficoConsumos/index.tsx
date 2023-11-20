@@ -11,7 +11,14 @@ interface Usuario {
   createdAt: string;
   ultimaMedicion?: {
     consumoDelMes: number;
+    consumoDelMesAnterior: number;
     createdAt: string;
+    id: number;
+    mesActual: string;
+    tarifaExcedente: number;
+    totalAPagar: number;
+    usuarioId: number;
+    valorFijo: number;
   };
 }
 
@@ -24,25 +31,26 @@ const GraficoConsumos: React.FC = () => {
     if (chartRef.current) {
       const usuariosConMedicion = userList.filter((user: Usuario) => user.ultimaMedicion);
       const nombresUsuarios = usuariosConMedicion.map((user: Usuario) => `${user.nombre} ${user.apellido}`);
-      const consumosMes = usuariosConMedicion.map((user: Usuario) => user.ultimaMedicion?.consumoDelMes || 0);
+      const totalAPagarUsuarios = usuariosConMedicion.map((user: Usuario) => user.ultimaMedicion?.totalAPagar || 0);
       const fechasMedicion = usuariosConMedicion.map((user: Usuario) =>
         user.ultimaMedicion?.createdAt ? new Date(user.ultimaMedicion.createdAt).toLocaleDateString() : ''
       );
+      const consumosMes = usuariosConMedicion.map((user: Usuario) => user.ultimaMedicion?.consumoDelMes || 0);
 
       const ctx = chartRef.current.getContext('2d');
       if (ctx) {
         if (chartInstance.current) {
           chartInstance.current.destroy();
         }
-
+  
         chartInstance.current = new Chart(ctx, {
           type: 'bar',
           data: {
             labels: nombresUsuarios,
             datasets: [
               {
-                label: 'Ultima medicion',
-                data: consumosMes,
+                label: 'Consumos en ARS',
+                data: totalAPagarUsuarios,
                 backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1,
@@ -62,7 +70,9 @@ const GraficoConsumos: React.FC = () => {
                     const label = context.dataset.label || '';
                     const value = context.parsed.y || 0;
                     const fecha = fechasMedicion[context.dataIndex];
-                    return `${label}: ${value} - ${fecha}`;
+                    const totalAPagar = usuariosConMedicion[context.dataIndex].ultimaMedicion?.totalAPagar || 0;
+                    const consumoUsuario = consumosMes[context.dataIndex];
+                    return `${label}: $${value} - Fecha: ${fecha} - Ultima Medicion: ${consumoUsuario}`;
                   },
                 },
               },
