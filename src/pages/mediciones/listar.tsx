@@ -24,7 +24,7 @@ const Listado: React.FC = () => {
   };
 
   const handleEdit = (
-    index: number, //! revisar objetivo del index, creo que no se usa.
+    index: number, 
     totalAPagar: number
   ) => {
     setEditingIndex(index);
@@ -171,7 +171,6 @@ const Listado: React.FC = () => {
                         {medicion.consumoDelMes -
                           medicion.consumoDelMesAnterior}
                       </td>
-                      <td>{medicion.id}</td>
                       <td>
                         {index === editingIndex ? (
                           <input
