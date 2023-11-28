@@ -25,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen }) => {
             <span onClick={closeModal} className="close-button">
               &times;
             </span>
-            <h2 className='modalTitulo'>Nueva medición:</h2>
+            <h2 className='modalTitulo'>Nueva medición</h2>
             <p className='modalParrafo'>Generada y almacenada exitosamente.</p>
             <div>
                 <button className='button-cerrarModal' onClick={closeModal}>Cerrar</button>
