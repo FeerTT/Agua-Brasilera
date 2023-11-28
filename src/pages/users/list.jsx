@@ -18,12 +18,12 @@ const Listado = () => {
   const [confirmationModalIsOpen, setConfirmationModalIsOpen] = useState(false);
   const [selectedUserDelete, setSelectedUserDelete] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const usersPerPage = 12;
+  const usersPerPage = 5;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [sortOption, setSortOption] = useState('apellido-asc');
   const [userIdInModal, setUserIdInModal] = useState(null);
   
-  
+  //const usuariosOrdenados = userList.sort()
   const openModal = (userId,) => {
     setUserIdInModal(userId, true);
     setModalIsOpen(true);
@@ -45,7 +45,16 @@ const Listado = () => {
     }
   });
 
-
+  const usersToShow = sortedUserList.sort((a, b) => {
+    if (a.active && !b.active) {
+      return -1; // Coloca a 'a' antes que 'b'
+    } else if (!a.active && b.active) {
+      return 1; // Coloca a 'b' antes que 'a'
+    } else {
+      return 0; // Mantén el orden actual
+    }
+  });
+  
   const closeModal = () => {
     setModalIsOpen(false);
     setUserIdInModal(null);
@@ -58,6 +67,7 @@ const Listado = () => {
   }
 
   const handleEliminarUsuario = (userId) => {
+    console.log("userididid",userId)
     dispatch(updateUserStatus(userId, false));
     closeConfirmationModal();
     window.location.reload();
@@ -97,13 +107,8 @@ const Listado = () => {
 
   const indexOfLastUser = (currentPage + 1) * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = sortedUserList.slice(indexOfFirstUser, indexOfLastUser);
-  
-   const activeUsers = currentUsers.filter((user) => user.active === true);
-   const disabledUsers = currentUsers.filter((user) => user.active === false);
+  const currentUsers = usersToShow.slice(indexOfFirstUser, indexOfLastUser);
 
-
-   const usersToShow = [...activeUsers, ...disabledUsers];
 
   return (
     <main>
@@ -147,7 +152,7 @@ const Listado = () => {
           </tr>
         </thead>
         <tbody>
-        {usersToShow.map((user) => (
+        {currentUsers.map((user) => (
         <tr className={`hover-effect ${user.active ? '' : 'disabled-user'}`} key={user.id}>
               <td>{user.id}</td>
               <td >{user.apellido}</td>

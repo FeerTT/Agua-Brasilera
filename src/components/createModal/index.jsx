@@ -35,6 +35,7 @@ const CreateUserConfirmationModal = ({ isOpen, onRequestClose, nombre, apellido,
       apellido: '',
       telefono: '',
     });
+    alert("Usuario creado exitosamente!");
     onRequestClose();
   };
 

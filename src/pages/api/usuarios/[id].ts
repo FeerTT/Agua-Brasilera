@@ -36,7 +36,7 @@ export default async function handler(
       }
 
       const { active, ...userData } = req.body;
-
+      console.log("userData???", userData)
       const dataToUpdate = active !== undefined ? { active } : userData;
 
       try {

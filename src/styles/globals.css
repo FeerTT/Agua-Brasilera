@@ -1207,12 +1207,12 @@ height: 50px;
   height: 100%;
   border: none;
   outline: none;
-  border-bottom: 2px solid #C06C84;
+  border-bottom: 2px solid #000000;
   font: inherit;  
 
   &:focus + .spanPruebaGoogle,
   &:not(:placeholder-shown) + .spanPruebaGoogle{
-    color: #F67280;
+    color: #8b8b8b;
     transform: translate(0,-100%) scale(.8);
   }
 
