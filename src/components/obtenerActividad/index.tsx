@@ -1,4 +1,6 @@
 import React from 'react';
+
+
 const ActivityLog: React.FC<{ activities: any[] }> = ({ activities }) => {
     const totalUsers = activities.length;
     const currentMonth = new Date().getMonth() + 1; // +1 porque los meses se indexan desde 0 (enero es 0)
