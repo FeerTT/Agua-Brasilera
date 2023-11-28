@@ -5,7 +5,7 @@ import generatePDF from "../mediciones/pdf";
 import ReactPaginate from "react-paginate";
 import Link from "next/link";
 import Image from "next/image";
-
+import GenerarComprobante from "../mediciones/comprobante"
 
 const Listado: React.FC = () => {
   const dispatch = useDispatch();
@@ -110,7 +110,8 @@ const Listado: React.FC = () => {
         <thead>
           <tr className="trTable">
             <th>Fecha</th>
-            <th>PDF</th>
+            <th>PDF Mediciones</th>
+            <th>PDF Comprobantes</th>
           </tr>
         </thead>
         <tbody>
@@ -126,7 +127,11 @@ const Listado: React.FC = () => {
                 <td>
 
                   <button className="botonGeneraPdf" onClick={() => generatePDF(selectedDate, selectedMediciones)}>
-
+                    <div className="imagenPdf" title="Descargar PDF"></div>
+                  </button>
+                </td>
+                <td>
+                <button className="botonGeneraPdf" onClick={() => GenerarComprobante(selectedDate, selectedMediciones)}>
                     <div className="imagenPdf" title="Descargar PDF"></div>
                   </button>
                 </td>

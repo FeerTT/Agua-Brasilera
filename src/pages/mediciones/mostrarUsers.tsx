@@ -199,6 +199,8 @@ const ComponenteDondeMostrarUsuarios = () => {
         title="Regresar"
       />
       </Link>
+      {valorFijoGlobal !== 0 && tarifaPorExcedenteGlobal !== 0 && (
+    <>
       <form>
         <table className="rwd-table">
           <thead>
@@ -229,14 +231,9 @@ const ComponenteDondeMostrarUsuarios = () => {
                     onResultsCalculated={handleResultsCalculated}
                   />
                 </td>
-
-
                 <td>{user.ultimaMedicion ? user.ultimaMedicion.consumoDelMesAnterior: 0} </td>
-
-
                 <td>{valorFijoGlobal}</td>
                 <td>{tarifaPorExcedenteGlobal}</td>
-
                 <td>
                   {userFormDataList
                     .filter((resultado: any) => resultado.usuarioId === user.id)
@@ -272,6 +269,7 @@ const ComponenteDondeMostrarUsuarios = () => {
           </tbody>
         </table>
       </form>
+    
       <ReactPaginate
         previousLabel={""}
         nextLabel={""}
@@ -291,14 +289,14 @@ const ComponenteDondeMostrarUsuarios = () => {
         <button className="buttonCrear" onClick={handleGenerateArray}>
           Generar Mediciones
         </button>
-        
       </div>
-
+      
       {modalAbierto && (
          <Modal isOpen={modalAbierto}  />
       )}
     </div>
-    
+    </>
+    )}
     </div>
   );
 };

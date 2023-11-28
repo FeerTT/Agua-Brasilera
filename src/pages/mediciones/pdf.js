@@ -23,7 +23,7 @@ const generatePDF = (selectedDate, selectedMediciones) => {
       ];
       if (!Array.isArray(selectedMediciones) || selectedMediciones.length === 0) {
         console.error('selectedMediciones is not a non-empty array');
-        return; // Manejar el error o salir de la función según sea necesario
+        return;
     }
   console.log(selectedMediciones, "CL DE SELECTED MEDICIONES")
       const rows = selectedMediciones.map((medicion) => [

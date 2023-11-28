@@ -1,4 +1,5 @@
 import React from 'react';
+
 const UsuariosPorMes: React.FC<{ activities: any[] }> = ({ activities }) => {
     
     const currentMonth = new Date().getMonth() + 1; 
