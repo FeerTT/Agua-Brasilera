@@ -111,7 +111,14 @@ const AddUserForm = (): JSX.Element => {
         </form>
         <CreateUserConfirmationModal
           isOpen={isModalOpen}
-          onRequestClose={() => setIsModalOpen(false)}
+          onRequestClose={() => {
+            setIsModalOpen(false);
+            setFormData({
+              nombre: "",
+              apellido: "",
+              telefono: "",
+            });
+          }}
           nombre={formData.nombre}
           apellido={formData.apellido}
           telefono={formData.telefono}
