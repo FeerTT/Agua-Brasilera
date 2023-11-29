@@ -27,7 +27,7 @@ const Listado: React.FC = () => {
   };
 
   const handleEdit = (
-    index: number, //! revisar objetivo del index, creo que no se usa.
+    index: number, 
     totalAPagar: number
   ) => {
     setEditingIndex(index);
