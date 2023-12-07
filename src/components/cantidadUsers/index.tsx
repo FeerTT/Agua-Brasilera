@@ -18,12 +18,15 @@ const CantidadUsers: React.FC = () => {
   return (
       <>
     <div className="chart-info-wrapper">
+      <div className="posicionPrimerCaja">
         <h2 id="userTotal">Usuarios Totales:</h2>
         <span id="spanTotalUsers">{totalUsers}</span>
         <h2 id="textInactiveUser">Usuarios Habilitados:</h2>
         <span id="spanTotalUsers">{disabledUsers}</span>
         <h2 id="textActiveUser">Usuarios Deshabilitados:</h2>
         <span id="spanTotalUsers">{usuariosHabilitados}</span>
+      </div>
+        
     </div>
         <div className="chart-svg">
         <svg viewBox="0 0 36 36" className="circular-chart pink">

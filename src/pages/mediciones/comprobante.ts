@@ -33,10 +33,20 @@ const GenerarComprobante = (selectedDate:any, selectedMediciones:any) => {
     const spacing = 10; // Espacio entre comprobantes
     const fontSize = 10;
     const comprobantesPorPagina = 4;
-    const [anio, mes] = selectedDate.split('-');
-const fechaRevertida = `${mes}-${anio}`;
-const espacioVertical = comprobanteHeight + spacing;
-if (selectedMediciones.length > 0) {
+    const monthNames = [
+        'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+      ];
+      if (!selectedDate || typeof selectedDate !== 'string' || selectedDate.length !== 7) {
+        console.error('selectedDate is not a valid string in the format YYYY-MM');
+        return;
+      }
+        const [anio, mes] = selectedDate.split('-');
+        const fechaRevertida = `${monthNames[parseInt(mes) - 1]} ${anio}`;
+        
+
+        const espacioVertical = comprobanteHeight + spacing;
+    if (selectedMediciones.length > 0) {
     for (let i = 0; i < selectedMediciones.length; i++) {
     const medicion = selectedMediciones[i];
 
@@ -63,7 +73,7 @@ if (selectedMediciones.length > 0) {
         doc.setFontSize(12)
         doc.text(`Único recibo por suministro de agua potable`, x + 5, y + 13);
         y += 5;
-        doc.text(`Fecha: ${fechaRevertida}`, x + 30, y + 17);
+        doc.text(`Mes a cobrar: ${fechaRevertida}`, x + 20, y + 17);
         y += 4;
         // COMIENZAN DATOS DE MEDICION
         doc.setFontSize(fontSize);
@@ -92,7 +102,7 @@ if (selectedMediciones.length > 0) {
         const fechaFormateada = `${mesNumero.toString().padStart(2, '0')}-${anio}`;
 
         doc.text(`Consumo en M3:`, x + 5, y + 42);
-        doc.text(`Leído en la fecha:  ${fechaFormateada}`, x + 10, y + 47);
+        doc.text(`Leído en el mes:  ${fechaFormateada}`, x + 10, y + 47);
         doc.text(`Básico: ${basico}`, x + 10, y + 52);
         doc.text(`Excedente: ${excedente}`, x + 10, y + 57);
         y += 5;

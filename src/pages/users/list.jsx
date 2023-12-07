@@ -18,7 +18,7 @@ const Listado = () => {
   const [confirmationModalIsOpen, setConfirmationModalIsOpen] = useState(false);
   const [selectedUserDelete, setSelectedUserDelete] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const usersPerPage = 3;
+  const usersPerPage = 10;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [sortOption, setSortOption] = useState('apellido-asc');
   const [userIdInModal, setUserIdInModal] = useState(null);

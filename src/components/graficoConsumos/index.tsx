@@ -36,6 +36,14 @@ const GraficoConsumos: React.FC = () => {
         user.ultimaMedicion?.createdAt ? new Date(user.ultimaMedicion.createdAt).toLocaleDateString() : ''
       );
       const consumosMes = usuariosConMedicion.map((user: Usuario) => user.ultimaMedicion?.consumoDelMes || 0);
+      const mesesMedicion = usuariosConMedicion.map((user: Usuario) => {
+        if (user.ultimaMedicion?.mesActual) {
+          const fecha = new Date(user.ultimaMedicion.mesActual);
+          const mesAnio = `${fecha.getMonth() + 1}-${fecha.getFullYear()}`;
+          return mesAnio;
+        }
+        return '';
+      });
 
       const ctx = chartRef.current.getContext('2d');
       if (ctx) {
@@ -72,7 +80,10 @@ const GraficoConsumos: React.FC = () => {
                     const fecha = fechasMedicion[context.dataIndex];
                     const totalAPagar = usuariosConMedicion[context.dataIndex].ultimaMedicion?.totalAPagar || 0;
                     const consumoUsuario = consumosMes[context.dataIndex];
-                    return `${label}: $${value} - Fecha: ${fecha} - Ultima Medicion: ${consumoUsuario}`;
+                    const medicionUsuario = mesesMedicion[context.dataIndex];
+                    
+                    
+                    return `${label}: $${value} - Mes a cobrar:${medicionUsuario} - Ultima Medicion: ${consumoUsuario}`;
                   },
                 },
               },

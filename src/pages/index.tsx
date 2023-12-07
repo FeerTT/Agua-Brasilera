@@ -45,7 +45,7 @@ const filteredUserList = useSelector((state: any) => state.userReducer.filteredU
     }
   };
 
-
+  console.log(filteredUserList, "FILTRADOS")
 
   //ACA TERMINA LA PRUEBA
 
@@ -131,16 +131,22 @@ const filteredUserList = useSelector((state: any) => state.userReducer.filteredU
     <div className="chart-row three">
       <div className="chart-container-wrapper">
         <div className="chart-container">
-          <CantidadUsers></CantidadUsers>
+          
+            <CantidadUsers></CantidadUsers>
+          
+          
         </div>
       </div>
       <div className="chart-container-wrapper">
         
         <div className="chart-container">
           <div className="chart-info-wrapper">
-            <h2 id='userTotal'>Totalidad de nuevos registros</h2>
+            <div className='posicionarCaja2'>
+              <h2 id='userTotal'>Totalidad de nuevos registros</h2>
             <span id='spanEsteMes'>Durante este mes:</span>
             <div id='divisorImportante'></div>
+          </div>
+            
           </div>
           <div className="chart-svg">
             <UserMensual></UserMensual>
@@ -206,7 +212,7 @@ const filteredUserList = useSelector((state: any) => state.userReducer.filteredU
       
     <div className="app-right-section">
       <div className="app-right-section-header">
-        <h2 id='h2ActividadesMes'>Actividades - Mes Actual</h2>
+        <h2 id='h2ActividadesMes'>Actividades</h2>
         <span className="notification-active">
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         </span>

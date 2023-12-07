@@ -86,7 +86,7 @@
 .circulars-chart.pink.has-measurements {
   /* position: relative;
   top: 60px; */
-  stroke: green; /* Color del borde si hay mediciones */
+  stroke: rgb(1, 165, 1); /* Color del borde si hay mediciones */
 }
 #spanTotalUsers{
   position: relative;
@@ -98,12 +98,24 @@
   position: relative;
   top: 10px;
 }
+.posicionarCaja2{
+  position: relative;
+  left: 1.8rem;
+  
+}
+.posicionPrimerCaja{
+  position: relative;
+  bottom: 2rem;
+  left: 1rem;
+}
 #userTotal{
   padding-left: 10px;
   font-size: 16px;
+  margin-top: 20px;
 }
 #divisorImportante{
-  height: 95px;
+  height: 160px;
+  
 }
 #divisorImportante1{
   height: 79px;
