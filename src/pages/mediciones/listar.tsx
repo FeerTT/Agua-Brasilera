@@ -123,16 +123,15 @@ const Listado: React.FC = () => {
                 key={index}
                 onClick={() => showMedicionDetails(date)}
               >
-                <td>{date}</td>
+                <td className="fechaClick">{date}</td>
                 <td>
-
-                  <button className="botonGeneraPdf" onClick={() => generatePDF(selectedDate, selectedMediciones)}>
+                  <button id="comprobanteMedicion" className="botonGeneraPdf" onClick={() => generatePDF(selectedDate, selectedMediciones)}>
                     <div className="imagenPdf" title="Descargar PDF"></div>
                   </button>
                 </td>
                 <td>
-                <button className="botonGeneraPdf" onClick={() => GenerarComprobante(selectedDate, selectedMediciones)}>
-                    <div className="imagenPdf" title="Descargar PDF"></div>
+                <button id="comprobanteTotal" className="botonGeneraPdf" onClick={() => GenerarComprobante(selectedDate, selectedMediciones)}>
+                    <div id="comprobanteTotal" className="imagenPdf" title="Descargar PDF"></div>
                   </button>
                 </td>
               </tr>

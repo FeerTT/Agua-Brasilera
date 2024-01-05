@@ -155,6 +155,7 @@ const ComponenteDondeMostrarUsuarios = () => {
           className="inputConsumoMes"
           type="text"
           placeholder="Valor Fijo"
+          id="inputInicial"
           value={valorFijoGlobal}
           onChange={(e) => {
             const value = e.target.value;
@@ -175,6 +176,7 @@ const ComponenteDondeMostrarUsuarios = () => {
           className="inputConsumoMes"
           type="text"
           placeholder="Tarifa por Excedente"
+          id="inputExcedente"
           value={tarifaPorExcedenteGlobal}
           onChange={(e) => {
             const value = e.target.value;
@@ -232,8 +234,8 @@ const ComponenteDondeMostrarUsuarios = () => {
                   />
                 </td>
                 <td>{user.ultimaMedicion ? user.ultimaMedicion.consumoDelMesAnterior: 0} </td>
-                <td>{valorFijoGlobal}</td>
-                <td>{tarifaPorExcedenteGlobal}</td>
+                <td className="classValorFijo">{valorFijoGlobal}</td>
+                <td className="classTarifaExcedente">{tarifaPorExcedenteGlobal}</td>
                 <td>
                   {userFormDataList
                     .filter((resultado: any) => resultado.usuarioId === user.id)
@@ -286,7 +288,7 @@ const ComponenteDondeMostrarUsuarios = () => {
       />
       <div>
       <div className="divButtonFinal">
-        <button className="buttonCrear" onClick={handleGenerateArray}>
+        <button className="buttonCrear" id="botonCrearMedicion" onClick={handleGenerateArray}>
           Generar Mediciones
         </button>
       </div>

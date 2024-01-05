@@ -152,7 +152,7 @@ const Listado = () => {
         </thead>
         <tbody>
         {currentUsers.map((user) => (
-        <tr className={`hover-effect ${user.active ? '' : 'disabled-user'}`} key={user.id}>
+        <tr className={`hover-effect ${user.active ? '' : 'disabled-user'}`} key={user.id} data-id={user.id}>
               <td>{user.id}</td>
               <td >{user.apellido}</td>
               <td >{user.nombre}</td>
@@ -161,6 +161,7 @@ const Listado = () => {
               {user.active && (
                 <Image
                 className='logosUser'
+                id='editarUsuarioListado'
                 src="/editar.png"
                 width={50}
                 height={50}
@@ -182,6 +183,7 @@ const Listado = () => {
                 src="/eliminar.png"
                 width={50} 
                 height={50} 
+                id='deshabilitarUser'
                 alt="Eliminar Usuario"
                 title="Deshabilitar Usuario"
                 onClick={() => openConfirmationModal(user.id, false)}
@@ -247,7 +249,7 @@ const Listado = () => {
             <div className="modalImportante-content">
               <h2>Confirmar habilitación</h2>
               <p>¿Estás seguro de que deseas habilitar este usuario?</p>
-              <button onClick={() => habilitarUsuario(userIdInModal)}>Habilitar</button>
+              <button id='botonHabilitarUsuario' onClick={() => habilitarUsuario(userIdInModal)}>Habilitar</button>
               <button onClick={closeModal}>Cancelar</button>
             </div>
           </div>
