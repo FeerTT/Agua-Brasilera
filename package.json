@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress-run": "cypress run",
+    "cypress-dev": "cypress open"
   },
   "dependencies": {
     "@prisma/client": "^5.3.1",
@@ -40,6 +42,7 @@
     "@types/d3": "^7.4.3",
     "@types/react-modal": "^3.16.0",
     "@types/react-table": "^7.7.15",
+    "cypress": "^13.6.2",
     "prisma": "^5.3.1"
   }
 }
